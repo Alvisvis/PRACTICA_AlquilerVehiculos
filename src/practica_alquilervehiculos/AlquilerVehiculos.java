@@ -8,7 +8,7 @@ package practica_alquilervehiculos;
  *
  * @author dam1
  */
-public class PRACTICA_AlquilerVehiculos {
+public class AlquilerVehiculos {
 
     /**
      * @param args the command line arguments
