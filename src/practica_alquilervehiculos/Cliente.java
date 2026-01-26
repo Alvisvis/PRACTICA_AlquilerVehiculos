@@ -1,0 +1,73 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package practica_alquilervehiculos;
+
+/**
+ *
+ * @author dam1
+ */
+import utiles.ES;
+
+public class Cliente {
+
+    //Atributos
+    private String dni;
+    private String nombre;
+    private String direccion;
+    private String localidad;
+    private String codigoPostal;
+
+    //Constructores
+    public Cliente(String dni, String nombre, String direccion, String localidad, String codigoPostal) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.localidad = localidad;
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Cliente(Cliente Ccopia) {
+        this.dni = Ccopia.dni;
+        this.nombre = Ccopia.nombre;
+        this.direccion = Ccopia.direccion;
+        this.localidad = Ccopia.localidad;
+        this.codigoPostal = Ccopia.codigoPostal;
+    }
+
+    //Getter
+    public String getDni() {
+        return dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    //ToString
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cliente:\n");
+        sb.append("DNI: ").append(dni);
+        sb.append("\nNombre: ").append(nombre);
+        sb.append("\nDireccion: ").append(direccion);
+        sb.append("\nLocalidad: ").append(localidad);
+        sb.append("\nCodigoPostal: ").append(codigoPostal);
+        return sb.toString();
+    }
+
+}
