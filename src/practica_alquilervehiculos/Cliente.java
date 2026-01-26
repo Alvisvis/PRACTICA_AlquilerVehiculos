@@ -18,6 +18,7 @@ public class Cliente {
     private String direccion;
     private String localidad;
     private String codigoPostal;
+    private boolean baja;
 
     //Constructores
     public Cliente(String dni, String nombre, String direccion, String localidad, String codigoPostal) {
@@ -26,6 +27,8 @@ public class Cliente {
         this.direccion = direccion;
         this.localidad = localidad;
         this.codigoPostal = codigoPostal;
+        this.baja = false;
+
     }
 
     public Cliente(Cliente Ccopia) {
@@ -34,6 +37,8 @@ public class Cliente {
         this.direccion = Ccopia.direccion;
         this.localidad = Ccopia.localidad;
         this.codigoPostal = Ccopia.codigoPostal;
+        this.baja = Ccopia.baja;
+
     }
 
     //Getter
@@ -55,6 +60,14 @@ public class Cliente {
 
     public String getCodigoPostal() {
         return codigoPostal;
+    }
+
+    public boolean isBaja() {
+        return baja;
+    }
+
+    public void setBaja(boolean baja) {
+        this.baja = baja;
     }
 
     //ToString

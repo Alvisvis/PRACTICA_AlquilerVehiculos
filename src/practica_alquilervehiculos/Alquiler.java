@@ -21,6 +21,7 @@ public class Alquiler {
     private int dias;
     private Cliente cliente;
     private Vehiculo turismo;
+    private boolean baja;
 
     //Constructores
     public Alquiler(Cliente c, Vehiculo v) {
@@ -29,6 +30,7 @@ public class Alquiler {
         this.cliente = c;
         this.dias = 0;
         turismo.setDisponible(false);
+        this.baja = false;
     }
 
     //GETTER

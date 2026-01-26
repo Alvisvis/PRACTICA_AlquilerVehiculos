@@ -16,6 +16,7 @@ public class Vehiculo {
     private String modelo;
     private int cilindrada;
     private boolean disponible;
+    private boolean baja;
 
     //CONSTRUCTORES
     public Vehiculo(String matricula, String marca, String modelo, int cilindrada) {
@@ -24,6 +25,7 @@ public class Vehiculo {
         this.modelo = modelo;
         this.cilindrada = cilindrada;
         this.disponible = true;
+        this.baja = false;
     }
 
     public Vehiculo(Vehiculo Vcopia) {
@@ -32,6 +34,8 @@ public class Vehiculo {
         this.modelo = Vcopia.modelo;
         this.cilindrada = Vcopia.cilindrada;
         this.disponible = Vcopia.disponible;
+        this.baja = Vcopia.baja;
+
     }
 
     //GETTER AND SETTER
@@ -59,6 +63,14 @@ public class Vehiculo {
         return cilindrada;
     }
 
+    public boolean isBaja() {
+        return baja;
+    }
+
+    public void setBaja(boolean baja) {
+        this.baja = baja;
+    }
+
     //TOSTRING
     @Override
     public String toString() {
@@ -69,6 +81,7 @@ public class Vehiculo {
         sb.append("\nModelo: ").append(modelo);
         sb.append("\nCilindrada: ").append(cilindrada);
         sb.append("\nDisponible: ").append(disponible);
+        sb.append("\nBaja: ").append(baja);
         return sb.toString();
     }
 
