@@ -4,6 +4,7 @@
  */
 package practica_alquilervehiculos;
 
+import java.util.Scanner;
 import utiles.ES;
 import utiles.Utilidades;
 
@@ -30,11 +31,70 @@ public class AJBM_AlquilerVehiculos {
     private int numAlquiler = 50;
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        AJBM_AlquilerVehiculos MiAlquiler = null;
+        Cliente c = null;
+        Vehiculo v = null;
+        Alquiler a = null;
+        String dni;
+        String matricula;
+        int op;
+        do {
+            menu();
 
+            op = sc.nextInt();
+            switch (op) {
+                case 1:
+                    MiAlquiler.anadirCliente(c);
+                    break;
+                case 2:
+                    dni = ES.leerCadena("Escribir el dni");
+                    MiAlquiler.borrarCliente(dni);
+                    break;
+                case 3:
+                    
+                    
+                    break;
+                case 4:
+                    MiAlquiler.anadirVehiculos(v);
+                    break;
+                case 5:
+                    matricula = ES.leerCadena("Escribi la matricula");
+                    MiAlquiler.borrarVehiculos(matricula);
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    MiAlquiler.anadirAlquiler(c, v);
+                    break;
+                case 8:
+                    MiAlquiler.borrarAlquiler(c, v);
+                    break;
+                case 9:
+                    break;
+
+            }
+        } while (op != 0);
+    }
+
+    //MENU
+    public static void menu() {
+        ES.escribirLn("------------------------------------------");
+        System.out.println("Alquileres de coches");
+        ES.escribirLn("1. Añadir cliente");
+        ES.escribirLn("2. Dar de baja cliente");
+        ES.escribirLn("3. Listar clientes");
+        ES.escribirLn("4. Añadir vehiculo");
+        ES.escribirLn("5. Dar de baja vehiculo");
+        ES.escribirLn("6. Listar vehiculos");
+        ES.escribirLn("7. Abrir un alquiler");
+        ES.escribirLn("8. Cerrar un alquiler");
+        ES.escribirLn("9. Listar alquileres");
+        ES.escribirLn("0. Cerrar");
     }
 
     //METODOS AÑADIR
-    private void anadirCliente(Cliente c) {
+    public void anadirCliente(Cliente c) {
 
         String dni = ES.leerCadena("Cual es el DNI o NIE del cliente");
         while (!Utilidades.comprobarDni(dni) || !dni.equals("1")) {
@@ -67,7 +127,7 @@ public class AJBM_AlquilerVehiculos {
 
     }
 
-    private void anadirVehiculos(Vehiculo v) {
+    public void anadirVehiculos(Vehiculo v) {
 
         String matricula = ES.leerCadena("Cual es el DNI o NIE del cliente");
         while (!Utilidades.comprobarMatricula(matricula) || !matricula.equals("1")) {
@@ -92,7 +152,7 @@ public class AJBM_AlquilerVehiculos {
         }
     }
 
-    private void anadirAlquiler(Cliente c, Vehiculo v) {
+    public void anadirAlquiler(Cliente c, Vehiculo v) {
         String dni = ES.leerCadena("DNI del cliente: ");
         String matricula = ES.leerCadena("Matrícula del vehículo: ");
 
@@ -108,7 +168,7 @@ public class AJBM_AlquilerVehiculos {
     }
 
     //METODOS BORRAR
-    private void borrarCliente(String dni) {
+    public void borrarCliente(String dni) {
         boolean encontrado = false;
         Cliente c = null;
 
@@ -130,7 +190,7 @@ public class AJBM_AlquilerVehiculos {
         }
     }
 
-    private void borrarVehiculos(String matricula) {
+    public void borrarVehiculos(String matricula) {
         boolean encontrado = false;
         Vehiculo v = null;
 
@@ -152,7 +212,7 @@ public class AJBM_AlquilerVehiculos {
         }
     }
 
-    private void borrarAlquiler(Cliente c, Vehiculo v) {
+    public void borrarAlquiler(Cliente c, Vehiculo v) {
         boolean encontrado = false;
         Alquiler a = null;
         String dni = ES.leerCadena("Introduce el dni");
@@ -178,7 +238,7 @@ public class AJBM_AlquilerVehiculos {
         return null;
     }
 
-    private Vehiculo getVehiculos(String matricula) {
+    public Vehiculo getVehiculos(String matricula) {
         for (Vehiculo v : vehiculos) {
             if (v != null && v.getMatricula().equalsIgnoreCase(matricula)) {
                 return v;
@@ -188,7 +248,7 @@ public class AJBM_AlquilerVehiculos {
     }
 
     //METODOS PLUS
-    private void quitarHueco(String dni) {
+    public void quitarHueco(String dni) {
         boolean encontrado = false;
         Cliente c = null;
 
