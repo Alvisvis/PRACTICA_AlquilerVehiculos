@@ -46,24 +46,12 @@ public class Utilidades {
      */
     public static boolean comprobarDni(String dni) {
         boolean correcto = false;
-        Pattern patDNI, patNIE;
-        String pregunta = ES.leerCadena("Es un DNI o un NIE");
-        if (pregunta.toLowerCase().equals("DNI")) {
-            patDNI = Pattern.compile("^\\d{8}[TRWAGMYFPDXBNJZSQVHLCKE]$");
+        Pattern patDNI = Pattern.compile("^\\d{9}[TRWAGMYFPDXBNJZSQVHLCKE]$");
 
-            Matcher matDNI = patDNI.matcher(dni.toLowerCase());
+        Matcher matDNI = patDNI.matcher(dni);
 
-            if (matDNI.find()) {
-                correcto = true;
-            }
-        } else {
-            patNIE = Pattern.compile("^[XYZ]\\d{7}[TRWAGMYFPDXBNJZSQVHLCKE]$");
-
-            Matcher matNIE = patNIE.matcher(dni.toLowerCase());
-
-            if (matNIE.find()) {
-                correcto = true;
-            }
+        if (matDNI.find()) {
+            correcto = true;
         }
         return correcto;
     }
@@ -78,7 +66,7 @@ public class Utilidades {
     public static boolean comprobarCodigoPostal(String codigoPostal) {
         boolean correcto = false;
 
-        Pattern pat = Pattern.compile("^[0-5]\\d{4}");
+        Pattern pat = Pattern.compile("^[0-5]\\d{5}$");
 
         Matcher mat = pat.matcher(codigoPostal);
 
