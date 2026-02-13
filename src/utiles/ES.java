@@ -4,6 +4,10 @@
  */
 package utiles;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -178,4 +182,62 @@ public class ES {
         return valor;
     }
 
+    public static boolean escribirFichero(String ruta, String datos, boolean _sobreEscribir) {
+        boolean correcto = false;
+
+        File archivo = new File(ruta);
+        FileWriter fichero = null;
+
+        try {
+            fichero = new FileWriter(archivo, !_sobreEscribir);
+
+            System.out.println("Guardando información............");
+
+            fichero.write(datos);
+            fichero.close();
+
+            System.out.println("Información guardada");
+            correcto = true;
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Fichero no encontrado");
+
+        } catch (IOException e) {
+            System.out.println("Mensaje:  " + e.getMessage());
+        }
+
+        return correcto;
+    }
+
+    public static boolean leerFichero(String ruta) {
+        File fichero = new File(ruta);
+        Scanner sc = null;
+        boolean correcto = false;
+
+        try {
+            System.out.println("Leyendo el contenido del fichero..........\n\n");
+            sc = new Scanner(fichero);
+
+            // leer línea a linea el fichero
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                System.out.println(linea);
+            }
+
+            System.out.println("\n --->>   Lectura completada");
+            correcto = true;
+
+        } catch (Exception e) {
+            System.out.println("Mensaje:  " + e.getMessage());
+        } finally {
+            try {
+                if (sc != null) {
+                    sc.close();
+                }
+            } catch (Exception e2) {
+                System.out.println("Mensaje fichero:   " + e2.getMessage());
+            }
+        }
+        return correcto;
+    }
 }

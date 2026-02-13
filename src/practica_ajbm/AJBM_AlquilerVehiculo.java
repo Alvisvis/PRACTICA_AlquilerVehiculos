@@ -86,6 +86,20 @@ public class AJBM_AlquilerVehiculo {
         } while (op != 0);
     }
 
+    //ARCHIVOS
+    public static boolean guardarDatos() {
+        boolean correcto = false;
+        String datos = null;
+        
+        
+        
+        
+        
+        
+        return correcto;
+    }
+    
+    
     //MENU
     private static void menu() {
         ES.escribirLn("------------------------------------------");
