@@ -13,8 +13,8 @@ import utiles.Utilidades;
  * @author dam-29
  */
 public class AJBM_AlquilerVehiculo {
-    
-  //ATRIBUTOS 
+
+    //ATRIBUTOS 
     private static int MAX_VEHICULOS = 50;
     private static int MAX_CLIENTES = 50;
     private static int MAX_ALQUILERES = 50;
@@ -51,7 +51,7 @@ public class AJBM_AlquilerVehiculo {
                 case 4:
                     for (int i = 0; i < numCliente; i++) {
                         if (clientes[i] != null && clientes[i].isBaja()) {
-                            System.out.println(clientes[i]);
+                            System.out.println(clientes[i].toString());
                         }
                     }
                     break;
@@ -69,7 +69,7 @@ public class AJBM_AlquilerVehiculo {
                 case 8:
                     for (int i = 0; i < numVehiculo; i++) {
                         if (vehiculos[i] != null && vehiculos[i].isBaja()) {
-                            System.out.println(vehiculos[i]);
+                            System.out.println(vehiculos[i].toString());
                         }
                     }
                     break;
@@ -86,21 +86,18 @@ public class AJBM_AlquilerVehiculo {
         } while (op != 0);
     }
 
-    //ARCHIVOS
-    public static boolean guardarDatos() {
-        boolean correcto = false;
-        String datos = null;
-        
-        
-        
-        
-        
-        
-        return correcto;
-    }
-    
-    
+//    //ARCHIVOS
+//    public static boolean guardarDatos() {
+//        boolean correcto = false;
+//        String datos = null;
+//
+//        return correcto;
+//    }
     //MENU
+    /**
+     * Metodo menu que se mostrara al principio para indicar que numero hay que
+     * introducir para hacer una funcion
+     */
     private static void menu() {
         ES.escribirLn("------------------------------------------");
         System.out.println("Alquileres de coches");
@@ -121,6 +118,13 @@ public class AJBM_AlquilerVehiculo {
     }
 
     //METODOS CLIENTES
+    /**
+     * Metodo para tener un cliente guardado en la array clientes a base de su
+     * dni
+     *
+     * @param dni
+     * @return objeto cliente o null
+     */
     private static Cliente getCliente(String dni) {
         for (Cliente c : clientes) {
             if (c != null && c.getDni().equals(dni)) {
@@ -130,6 +134,11 @@ public class AJBM_AlquilerVehiculo {
         return null;
     }
 
+    /**
+     * Metodo para insertar datos de un cliente y crear un objeto cliente
+     *
+     * @return objeto cliente
+     */
     private static Cliente insertarCliente() {
         Cliente c;
         String dni = ES.leerCadena("Cual es el DNI o NIE del cliente");
@@ -151,6 +160,12 @@ public class AJBM_AlquilerVehiculo {
         return c = new Cliente(dni, nombre, direccion, localidad, codigoPostal);
     }
 
+    /**
+     * Metodo que recibe una variable Cliente, donde compara si el dni existe ya
+     * y si queda espacio en el array
+     *
+     * @param c
+     */
     private static void anadirCliente(Cliente c) {
         String dni = c.getDni();
 
@@ -172,17 +187,18 @@ public class AJBM_AlquilerVehiculo {
     }
 
     private static void BorrarCliente(String dni) {
-        while (Utilidades.comprobarDni(dni)) {
+        while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
             dni = ES.leerCadena("Cual es el DNI del cliente?");
         }
 
         boolean encontrado = false;
-        Cliente c = null;
+        Cliente c;
 
-        for (int i = 0; i < numAlquiler && !encontrado; i++) {
-            if (alquileres[i].getCliente().getDni().equals(dni)) {
-                c = alquileres[i].getCliente();
+        for (int i = 0; i < numCliente && !encontrado; i++) {
+            if (clientes[i].getDni().equals(dni)) {
+                c = getCliente(dni);
+                c.setBaja(true);
                 encontrado = true;
             }
         }
