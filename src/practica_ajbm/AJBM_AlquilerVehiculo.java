@@ -5,6 +5,7 @@
 package practica_ajbm;
 
 import java.util.Scanner;
+import practica_ajbm.Vehiculo;
 import utiles.ES;
 import utiles.Utilidades;
 
@@ -119,8 +120,7 @@ public class AJBM_AlquilerVehiculo {
 
     //METODOS CLIENTES
     /**
-     * Metodo para tener un cliente guardado en la array clientes a base de su
-     * dni
+     * Metodo que busca un cliente con un DNI introducido
      *
      * @param dni
      * @return objeto cliente o null
@@ -161,8 +161,9 @@ public class AJBM_AlquilerVehiculo {
     }
 
     /**
-     * Metodo que recibe una variable Cliente, donde compara si el dni existe ya
-     * y si queda espacio en el array
+     * Metodo que recibe un objeto Cliente, recorre el array para verificar si
+     * el DNI existe en la array, verifica si hay espacio en la array clientes y
+     * si queda espacio en el array
      *
      * @param c
      */
@@ -177,15 +178,18 @@ public class AJBM_AlquilerVehiculo {
                 clientes[numCliente] = c;
                 numCliente++;
                 ES.escribirLn("Cliente añadido correctamente.");
-            } else {
-                System.out.println("ERROR");
-
             }
         } else {
             System.out.println("No hay espacio para mas clientes");
         }
     }
 
+    /**
+     * Metodo para dar de baja a un cliente de la array, sin elimanarlo de la
+     * array
+     *
+     * @param dni
+     */
     private static void BorrarCliente(String dni) {
         while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
@@ -200,11 +204,15 @@ public class AJBM_AlquilerVehiculo {
                 c = getCliente(dni);
                 c.setBaja(true);
                 encontrado = true;
+                ES.escribir("Cliente borrado existosamente");
             }
         }
-
+        System.out.println("Error");
     }
 
+    /**
+     * Metodo para listar los clientes pertenecientes de la array clientes
+     */
     private static void ListarCliente() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Clientes");
@@ -216,6 +224,13 @@ public class AJBM_AlquilerVehiculo {
     }
 
     //METODOS VEHICULOS
+    /**
+     * Metodo que buscar un vehiculo en la array de vehiculos, a base de la
+     * matricula
+     *
+     * @param matricula
+     * @return objeto vehiculo o null
+     */
     private static Vehiculo getVehiculos(String matricula) {
         for (Vehiculo v : vehiculos) {
             if (v != null && v.getMatricula().equals(matricula)) {
@@ -225,6 +240,12 @@ public class AJBM_AlquilerVehiculo {
         return null;
     }
 
+    /**
+     * Metodo para insertar datos de un vehiculo dependiendo de su tipo y crea
+     * un objeto de relativo tipo de vehiculo
+     *
+     * @return objeto de tipo de vehiculo
+     */
     private static Vehiculo insertarVehiculo() {
         Vehiculo v = null;
         boolean correcto = false;
@@ -326,6 +347,12 @@ public class AJBM_AlquilerVehiculo {
         return v;
     }
 
+    /**
+     * Metodo para añadir un vehiculo, verificando si el vehiculo exites ya( con
+     * su matricula), verifica si tiene espacio la array vehiculo y lo añade
+     *
+     * @param v
+     */
     private static void anadirVehiculos(Vehiculo v) {
         String matricula = v.getMatricula();
 
@@ -337,8 +364,6 @@ public class AJBM_AlquilerVehiculo {
                 vehiculos[numVehiculo] = v;
                 numVehiculo++;
                 ES.escribirLn("Cliente añadido correctamente.");
-            } else {
-                System.out.println("ERROR");
             }
         } else {
             System.out.println("No hay espacio para mas clientes");
@@ -348,7 +373,7 @@ public class AJBM_AlquilerVehiculo {
 
     private static void borrarVehiculos(String matricula) {
 
-        while (Utilidades.comprobarMatricula(matricula)) {
+        while (!Utilidades.comprobarMatricula(matricula)) {
             ES.escribir("Este matricula no es valido, vuelva a introducirlo");
             matricula = ES.leerCadena("Cual es el matricula del cliente?");
         }
@@ -356,14 +381,19 @@ public class AJBM_AlquilerVehiculo {
         boolean encontrado = false;
         Vehiculo v = null;
 
-        for (int i = 0; i < numAlquiler && !encontrado; i++) {
-            if (alquileres[i].getTurismo().getMatricula().equals(matricula)) {
-                v = alquileres[i].getTurismo();
+        for (int i = 0; i < numVehiculo && !encontrado; i++) {
+            if (vehiculos[i].getMatricula().equals(matricula)) {
+                v.setBaja(true);
                 encontrado = true;
+                System.out.println("Vehiculo dado de baja existosamente");
             }
         }
+        System.out.println("Error. Vehiculo no dado de baja");
     }
 
+    /**
+     * Metodo para listar los vehiculos que estan en la array de vehiculos
+     */
     private static void ListarVehiculo() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Vehiculos");
@@ -375,6 +405,10 @@ public class AJBM_AlquilerVehiculo {
     }
 
     //METODOS ALQUILER
+    /**
+     * Metodo para insertar datos en la array de alquileres, crea 1 objeto
+     * vehiculo y otro cliente para luego usar el metodo nuevoAlquiler
+     */
     private static void insertarAlquiler() {
         String dni = ES.leerCadena("DNI del cliente: ");
         while (Utilidades.comprobarDni(dni)) {
@@ -397,6 +431,12 @@ public class AJBM_AlquilerVehiculo {
         nuevoAlquiler(c, v);
     }
 
+    /**
+     * Metodo para añadir un alquiler
+     *
+     * @param c
+     * @param v
+     */
     private static void nuevoAlquiler(Cliente c, Vehiculo v) {
 
         if (!v.isDisponible()) {
@@ -404,22 +444,18 @@ public class AJBM_AlquilerVehiculo {
         }
         if (alquileres[numAlquiler] == null) {
             alquileres[numAlquiler] = new Alquiler(c, v);
+            numAlquiler++;
             ES.escribir("Alquiler abierto correctamente.");
-        }
-        System.out.println("ERROR");
-    }
+        } else {
+            System.out.println("ERROR");
 
-    private static void borrarAlquiler(Cliente c, Vehiculo v) {
-        int i = 0;
-        while (i < MAX_ALQUILERES) {
-            if (alquileres[i] != null && alquileres[i].getCliente() == c && alquileres[i].getTurismo() == v) {
-                alquileres[i] = null;
-                numAlquiler--;
-            }
-            i++;
         }
     }
 
+    /**
+     * Pide los datos para poder eliminar un alquiler, creando 2 objetos que son
+     * de Vehiculo y Cliente y luego utilizar el metodo borrarAlquiler
+     */
     private static void eliminarAlquiler() {
         String matricula = ES.leerCadena("Cual es la matricula del coche?");
         String dni = ES.leerCadena("Cual es el dni del coche?");
@@ -447,6 +483,49 @@ public class AJBM_AlquilerVehiculo {
         borrarAlquiler(c, v);
     }
 
+    /**
+     * Metodo para borrar un alquiler, recibiendo 2 objetos y elimina la
+     * posicion y el array al completo
+     *
+     * @param c
+     * @param v
+     */
+    private static void borrarAlquiler(Cliente c, Vehiculo v) {
+        int posicion = -1;
+
+        // Buscar el alquiler
+        for (int i = 0; i < numAlquiler; i++) {
+            if (alquileres[i] != null
+                    && alquileres[i].getCliente().getDni().equals(c.getDni())
+                    && alquileres[i].getTurismo().getMatricula().equals(v.getMatricula())) {
+
+                posicion = i;
+                break;
+            }
+        }
+
+        // Si no se encontró
+        if (posicion == -1) {
+            System.out.println("No se encontró el alquiler.");
+            return;
+        }
+
+        // Desplazar elementos hacia la izquierda
+        for (int i = posicion; i < numAlquiler - 1; i++) {
+            alquileres[i] = alquileres[i + 1];
+        }
+
+        // Limpiar última posición
+        alquileres[numAlquiler - 1] = null;
+
+        numAlquiler--;
+
+        System.out.println("Alquiler eliminado correctamente.");
+    }
+
+    /**
+     * Metodo para listar los alquiler que existen en la array alquiler
+     */
     private static void ListarAlquiler() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Alquires");
