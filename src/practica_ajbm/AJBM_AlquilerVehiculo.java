@@ -16,9 +16,13 @@ import utiles.Utilidades;
 public class AJBM_AlquilerVehiculo {
 
     //ATRIBUTOS
-    private static final String rutaC = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\cliente_AJBM.dat";
-    private static final String rutaV = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\vehiculo_AJBM.dat";
-    private static final String rutaA = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\alquilers_AJBM.dat";
+    private static final String rutadatC = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\cliente_AJBM.dat";
+    private static final String rutadatV = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\vehiculo_AJBM.dat";
+    private static final String rutadatA = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\alquilers_AJBM.dat";
+
+    private static final String rutatxtC = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\cliente_AJBM.txt";
+    private static final String rutatxtV = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\vehiculo_AJBM.txt";
+    private static final String rutatxtA = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\alquilers_AJBM.txt";
 
     private static int MAX_VEHICULOS = 50;
     private static int MAX_CLIENTES = 50;
@@ -88,7 +92,8 @@ public class AJBM_AlquilerVehiculo {
                     ListarAlquiler();
                     break;
                 case 12:
-                    guardarDatos();
+                    guardarDatosTXT();
+                    guardarDatosDAT();
                     break;
                 case 13:
                     int tipo = ES.leerEntero("¿Cual archivo quieres leer?"
@@ -96,11 +101,14 @@ public class AJBM_AlquilerVehiculo {
                             + "\n 2. Archivo Vehiculos"
                             + "\n 3. Archivo Alquleres");
                     if (tipo == 1) {
-                        ES.leerArchivo(rutaC);
+                        ES.leerArchivo(rutadatC);
+                        ES.leerArchivo(rutatxtC);
                     } else if (tipo == 2) {
-                        ES.leerArchivo(rutaV);
+                        ES.leerArchivo(rutadatV);
+                        ES.leerArchivo(rutatxtV);
                     } else if (tipo == 3) {
-                        ES.leerArchivo(rutaA);
+                        ES.leerArchivo(rutadatA);
+                        ES.leerArchivo(rutatxtA);
                     } else {
                         System.out.println("Esa opcion no es correcta");
                     }
@@ -110,29 +118,57 @@ public class AJBM_AlquilerVehiculo {
     }
 
     //ARCHIVOS
-    public static void guardarDatos() {
+    public static void guardarDatosTXT() {
 
         for (int i = 0; i < numCliente; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutaC, clientes[i].toString(), true);
+                ES.escribirArchivo(rutatxtC, clientes[i].toString(), true);
             } else {
-                ES.escribirArchivo(rutaC, clientes[i].toString(), false);
+                ES.escribirArchivo(rutatxtC, clientes[i].toString(), false);
             }
         }
 
         for (int i = 0; i < numVehiculo; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutaV, vehiculos[i].toString(), true);
+                ES.escribirArchivo(rutatxtV, vehiculos[i].toString(), true);
             } else {
-                ES.escribirArchivo(rutaV, vehiculos[i].toString(), false);
+                ES.escribirArchivo(rutatxtV, vehiculos[i].toString(), false);
             }
         }
 
         for (int i = 0; i < numAlquiler; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutaA, alquileres[i].toString(), true);
+                ES.escribirArchivo(rutatxtA, alquileres[i].toString(), true);
             } else {
-                ES.escribirArchivo(rutaA, alquileres[i].toString(), false);
+                ES.escribirArchivo(rutatxtA, alquileres[i].toString(), false);
+            }
+        }
+
+    }
+
+    public static void guardarDatosDAT() {
+
+        for (int i = 0; i < numCliente; i++) {
+            if (i == 0) {
+                ES.escribirArchivo(rutadatC, clientes[i].toString(), true);
+            } else {
+                ES.escribirArchivo(rutadatC, clientes[i].toString(), false);
+            }
+        }
+
+        for (int i = 0; i < numVehiculo; i++) {
+            if (i == 0) {
+                ES.escribirArchivo(rutadatV, vehiculos[i].toString(), true);
+            } else {
+                ES.escribirArchivo(rutadatV, vehiculos[i].toString(), false);
+            }
+        }
+
+        for (int i = 0; i < numAlquiler; i++) {
+            if (i == 0) {
+                ES.escribirArchivo(rutadatA, alquileres[i].toString(), true);
+            } else {
+                ES.escribirArchivo(rutadatA, alquileres[i].toString(), false);
             }
         }
 
@@ -459,12 +495,12 @@ public class AJBM_AlquilerVehiculo {
      */
     private static void insertarAlquiler() {
         String dni = ES.leerCadena("DNI del cliente: ");
-        while (Utilidades.comprobarDni(dni)) {
+        while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
             dni = ES.leerCadena("Cual es el DNI del cliente?");
         }
         String matricula = ES.leerCadena("Matrícula del vehículo: ");
-        while (Utilidades.comprobarMatricula(matricula)) {
+        while (!Utilidades.comprobarMatricula(matricula)) {
             ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
             matricula = ES.leerCadena("Cual es el matricula del cliente?");
         }

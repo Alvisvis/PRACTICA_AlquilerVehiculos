@@ -82,4 +82,9 @@ public class Cliente {
         return sb.toString();
     }
 
+    public String toEscribir() {
+        return "Cliente: " + dni + nombre + direccion + localidad + codigoPostal + baja;
+    }
+
+    
 }
