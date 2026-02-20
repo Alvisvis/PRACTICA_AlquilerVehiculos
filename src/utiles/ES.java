@@ -161,7 +161,7 @@ public class ES {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("El dato introducido no es corrcto");
-                System.out.println("Introduce un Si, si o No n");
+                System.out.println("Introduce un Si, S, No o N");
             }
         } while (!correcto);
         return respuesta;
@@ -182,7 +182,7 @@ public class ES {
         return valor;
     }
 
-    public static boolean escribirFichero(String ruta, String datos, boolean _sobreEscribir) {
+    public static boolean escribirArchivo(String ruta, String datos, boolean _sobreEscribir) {
         boolean correcto = false;
 
         File archivo = new File(ruta);
@@ -193,7 +193,7 @@ public class ES {
 
             System.out.println("Guardando información............");
 
-            fichero.write(datos);
+            fichero.write(datos + "#");
             fichero.close();
 
             System.out.println("Información guardada");
@@ -209,7 +209,7 @@ public class ES {
         return correcto;
     }
 
-    public static boolean leerFichero(String ruta) {
+    public static boolean leerArchivo(String ruta) {
         File fichero = new File(ruta);
         Scanner sc = null;
         boolean correcto = false;

@@ -36,10 +36,10 @@ public class Mercancias extends Vehiculo {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\tMercancias");
-        sb.append("-----------------------");
-        sb.append("\n Peso Maximo Autorizado: ").append(pma);
-        sb.append("\n Volumen de mercancia: ").append(volumen);
+        sb.append("\nMercancias");
+        sb.append("\n").append(super.toString());
+        sb.append("\nPeso Maximo Autorizado: ").append(pma);
+        sb.append("\nVolumen de mercancia: ").append(volumen);
         sb.append("");
         return sb.toString();
     }

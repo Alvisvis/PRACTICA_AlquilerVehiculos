@@ -34,10 +34,10 @@ public class Deportivo extends Turismo {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Deportivo: ");
-        sb.append(super.toString());
-        sb.append("\n Descapotable:").append(descapotable);
-        sb.append("\n Cambio: ").append(cambio);
+        sb.append("\nDeportivo: ");
+        sb.append("\n").append(super.toString());
+        sb.append("\nDescapotable:").append(descapotable);
+        sb.append("\nCambio: ").append(cambio);
         return sb.toString();
     }
 

@@ -15,7 +15,11 @@ import utiles.Utilidades;
  */
 public class AJBM_AlquilerVehiculo {
 
-    //ATRIBUTOS 
+    //ATRIBUTOS
+    private static final String rutaC = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\cliente_AJBM.dat";
+    private static final String rutaV = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\vehiculo_AJBM.dat";
+    private static final String rutaA = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\alquilers_AJBM.dat";
+
     private static int MAX_VEHICULOS = 50;
     private static int MAX_CLIENTES = 50;
     private static int MAX_ALQUILERES = 50;
@@ -83,17 +87,57 @@ public class AJBM_AlquilerVehiculo {
                 case 11:
                     ListarAlquiler();
                     break;
+                case 12:
+                    guardarDatos();
+                    break;
+                case 13:
+                    int tipo = ES.leerEntero("¿Cual archivo quieres leer?"
+                            + "\n 1. Archivo Clientes"
+                            + "\n 2. Archivo Vehiculos"
+                            + "\n 3. Archivo Alquleres");
+                    if (tipo == 1) {
+                        ES.leerArchivo(rutaC);
+                    } else if (tipo == 2) {
+                        ES.leerArchivo(rutaV);
+                    } else if (tipo == 3) {
+                        ES.leerArchivo(rutaA);
+                    } else {
+                        System.out.println("Esa opcion no es correcta");
+                    }
+                    break;
             }
         } while (op != 0);
     }
 
-//    //ARCHIVOS
-//    public static boolean guardarDatos() {
-//        boolean correcto = false;
-//        String datos = null;
-//
-//        return correcto;
-//    }
+    //ARCHIVOS
+    public static void guardarDatos() {
+
+        for (int i = 0; i < numCliente; i++) {
+            if (i == 0) {
+                ES.escribirArchivo(rutaC, clientes[i].toString(), true);
+            } else {
+                ES.escribirArchivo(rutaC, clientes[i].toString(), false);
+            }
+        }
+
+        for (int i = 0; i < numVehiculo; i++) {
+            if (i == 0) {
+                ES.escribirArchivo(rutaV, vehiculos[i].toString(), true);
+            } else {
+                ES.escribirArchivo(rutaV, vehiculos[i].toString(), false);
+            }
+        }
+
+        for (int i = 0; i < numAlquiler; i++) {
+            if (i == 0) {
+                ES.escribirArchivo(rutaA, alquileres[i].toString(), true);
+            } else {
+                ES.escribirArchivo(rutaA, alquileres[i].toString(), false);
+            }
+        }
+
+    }
+
     //MENU
     /**
      * Metodo menu que se mostrara al principio para indicar que numero hay que
@@ -115,6 +159,9 @@ public class AJBM_AlquilerVehiculo {
         ES.escribirLn("9. Nuevo alquiler");
         ES.escribirLn("10. Cerrar un alquiler");
         ES.escribirLn("11. Listar alquileres");
+
+        ES.escribirLn("12. Guardar datos");
+        ES.escribirLn("13. Leer archivos guardados");
         ES.escribirLn("0. Cerrar");
     }
 
@@ -205,9 +252,10 @@ public class AJBM_AlquilerVehiculo {
                 c.setBaja(true);
                 encontrado = true;
                 ES.escribir("Cliente borrado existosamente");
+            } else {
+                System.out.println("Error. Cliente no ha sido borrado, no existe ningun cliente con ese DNI");
             }
         }
-        System.out.println("Error");
     }
 
     /**
@@ -252,7 +300,7 @@ public class AJBM_AlquilerVehiculo {
 
         String matricula = ES.leerCadena("Introduce la matricula del vehiculo");
         while (!Utilidades.comprobarMatricula(matricula)) {
-            ES.escribir("Este matricula no es valido, vuelva a introducirlo");
+            ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
             matricula = ES.leerCadena("Cual es el matricula del vehiculo?");
         }
         String marca = ES.leerCadena("Introduce la marca del vehiculo");
@@ -276,10 +324,10 @@ public class AJBM_AlquilerVehiculo {
 
             Enumerados.TipoCombustible tipoCombustible = null;
             int op = ES.leerEntero("Introduce uno de estos numeros para saber el tipo de combustible: "
-                    + "1 - Gasolina"
-                    + "2 - Diesel"
-                    + "3 - Hibrido"
-                    + "4- Eletrico");
+                    + "\n1 - Gasolina"
+                    + "\n2 - Diesel"
+                    + "\n3 - Hibrido"
+                    + "\n4- Eletrico");
             switch (op) {
                 case 1:
                     tipoCombustible = Enumerados.TipoCombustible.GASOLINA;
@@ -298,12 +346,12 @@ public class AJBM_AlquilerVehiculo {
                     + "\n 1- Deportivo"
                     + "\n 2- Familiar");
             if (subTipo == 1) {
-                boolean descapotable = ES.leerBoolean("Introduce S o Si, si el vehiculo es descapotable"
-                        + "al contrario, introduce N o no, si el vehiculo no lo es");
+                boolean descapotable = ES.leerBoolean("Introduce S o Si, si el vehiculo es descapotable,"
+                        + " al contrario, introduce N o no, si el vehiculo no lo es");
                 Enumerados.CajaCambio cambio = null;
                 int po = ES.leerEntero("Introduce uno de estos numeros para saber su caja de cambio: "
-                        + "1 - Automatico"
-                        + "2 - Manual");
+                        + "\n1 - Automatico"
+                        + "\n2 - Manual");
 
                 switch (po) {
                     case 1:
@@ -317,19 +365,19 @@ public class AJBM_AlquilerVehiculo {
             } else if (subTipo == 2) {
                 int nPlazas = ES.leerEntero("¿Cuantes plazas tiene el Vehiculo?");
                 boolean sillita = ES.leerBoolean("Introduce S o Si, si el vehiculo tiene silla de bebe"
-                        + "al contrario, introduce N o no, si el vehiculo no lo tiene");
+                        + " al contrario, introduce N o no, si el vehiculo no lo tiene");
                 return v = new Familiar(nPlazas, sillita, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
             }
         } else if (tipo == 2) {
             int pma = ES.leerEntero("¿Cual es el peso del vehiculo?");
             int volumen = ES.leerEntero("¿Cual es el volumen del vehiculo?");
             boolean refrigerado = ES.leerBoolean("Introduce S o Si, si el vehiculo es refrigerado"
-                    + "al contrario, introduce N o no, si el vehiculo no lo es");
+                    + " al contrario, introduce N o no, si el vehiculo no lo es");
             Enumerados.Tamano tamanio = null;
             int opt = ES.leerEntero("Introduce uno de estos numeros para saber el tipo de combustible: "
-                    + "1 - Grande"
-                    + "2 - Mediano"
-                    + "3 - Pequeño");
+                    + "\n1 - Grande"
+                    + "\n2 - Mediano"
+                    + "\n3 - Pequeño");
             switch (opt) {
                 case 1:
                     tamanio = Enumerados.Tamano.GRANDE;
@@ -363,10 +411,10 @@ public class AJBM_AlquilerVehiculo {
             if (getVehiculos(v.getMatricula()) == null) {
                 vehiculos[numVehiculo] = v;
                 numVehiculo++;
-                ES.escribirLn("Cliente añadido correctamente.");
+                ES.escribirLn("Vehiculo añadido correctamente.");
             }
         } else {
-            System.out.println("No hay espacio para mas clientes");
+            System.out.println("No hay espacio para mas vehiculos");
         }
         System.out.println("");
     }

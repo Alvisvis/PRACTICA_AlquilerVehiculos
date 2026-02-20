@@ -30,10 +30,10 @@ public class Furgoneta extends Mercancias {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Furgoneta: ");
-        sb.append(super.toString());
-        sb.append("\n Esta refrigerado? ").append(refrigerado );
-        sb.append("\n Tamaño: ").append(tamanio);
+        sb.append("\nFurgoneta: ");
+        sb.append("\n").append(super.toString());
+        sb.append("\nEsta refrigerado? ").append(refrigerado);
+        sb.append("\nTamaño: ").append(tamanio);
         sb.append("");
         return sb.toString();
     }

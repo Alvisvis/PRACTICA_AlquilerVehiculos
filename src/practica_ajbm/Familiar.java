@@ -38,10 +38,10 @@ public class Familiar extends Turismo {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Familiar: ");
-        sb.append(super.toString());
-        sb.append("\n Numero de plazas: ").append(nPlazas);
-        sb.append("\n Tiene silla de bebe? ").append(sillaBebe);
+        sb.append("\nFamiliar: ");
+        sb.append("\n").append(super.toString());
+        sb.append("\nNumero de plazas: ").append(nPlazas);
+        sb.append("\nTiene silla de bebe? ").append(sillaBebe);
         sb.append("");
         return sb.toString();
     }

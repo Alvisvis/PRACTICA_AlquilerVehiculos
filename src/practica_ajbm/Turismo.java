@@ -26,11 +26,10 @@ public class Turismo extends Vehiculo {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\tTurismo: ");
-        sb.append("-----------------------");
-        sb.append(super.toString());
-        sb.append("\n Numero de puertas: ").append(nPuertas);
-        sb.append("\n Tipo de combustible: ").append(tipoCombustible);
+        sb.append("\nTurismo: ");
+        sb.append("\n").append(super.toString());
+        sb.append("\nNumero de puertas: ").append(nPuertas);
+        sb.append("\nTipo de combustible: ").append(tipoCombustible);
         sb.append("");
         return sb.toString();
     }
