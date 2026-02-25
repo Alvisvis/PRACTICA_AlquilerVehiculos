@@ -34,4 +34,8 @@ public class Turismo extends Vehiculo {
         return sb.toString();
     }
 
+    public String toEscribir() {
+        return "Turismo#" + super.toEscribir() + "#" + nPuertas + "#" + tipoCombustible;
+    }
+
 }

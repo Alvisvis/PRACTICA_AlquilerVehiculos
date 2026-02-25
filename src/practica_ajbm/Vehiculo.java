@@ -82,4 +82,9 @@ public abstract class Vehiculo {
         sb.append("\nBaja: ").append(baja ? "Si" : "No");
         return sb.toString();
     }
+
+    public String toEscribir() {
+        return matricula + "#" + marca + "#" + modelo + "#" + cilindrada + "#" + disponible + "#" + baja;
+    }
+
 }

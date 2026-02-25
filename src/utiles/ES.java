@@ -189,11 +189,11 @@ public class ES {
         FileWriter fichero = null;
 
         try {
-            fichero = new FileWriter(archivo, !_sobreEscribir);
+            fichero = new FileWriter(archivo, _sobreEscribir);
 
             System.out.println("Guardando información............");
 
-            fichero.write(datos + "#");
+            fichero.write(datos);
             fichero.close();
 
             System.out.println("Información guardada");
@@ -209,10 +209,10 @@ public class ES {
         return correcto;
     }
 
-    public static boolean leerArchivo(String ruta) {
+    public static String leerArchivo(String ruta) {
         File fichero = new File(ruta);
         Scanner sc = null;
-        boolean correcto = false;
+        StringBuilder contenido = new StringBuilder();
 
         try {
             System.out.println("Leyendo el contenido del fichero..........\n\n");
@@ -220,12 +220,10 @@ public class ES {
 
             // leer línea a linea el fichero
             while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                System.out.println(linea);
+                contenido.append(sc.nextLine()).append("\n");
             }
 
             System.out.println("\n --->>   Lectura completada");
-            correcto = true;
 
         } catch (Exception e) {
             System.out.println("Mensaje:  " + e.getMessage());
@@ -238,6 +236,6 @@ public class ES {
                 System.out.println("Mensaje fichero:   " + e2.getMessage());
             }
         }
-        return correcto;
+        return contenido.toString();
     }
 }

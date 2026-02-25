@@ -38,4 +38,7 @@ public class Furgoneta extends Mercancias {
         return sb.toString();
     }
 
+    public String toEscribir() {
+        return "Furgoneta#" + super.toEscribir() + "#" + refrigerado + "#" + tamanio;
+    }
 }

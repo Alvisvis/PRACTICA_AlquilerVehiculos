@@ -84,4 +84,7 @@ public class Alquiler {
         return sb.toString();
     }
 
+    public String toEscribir() {
+        return "Alquiler#" + fecha + "#" + dias + "#" + cliente + "#" + turismo;
+    }
 }

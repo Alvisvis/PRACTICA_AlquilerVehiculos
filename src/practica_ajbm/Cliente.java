@@ -83,8 +83,7 @@ public class Cliente {
     }
 
     public String toEscribir() {
-        return "Cliente: " + dni + nombre + direccion + localidad + codigoPostal + baja;
+        return "Cliente#" + dni + "#" + nombre + "#" + direccion + "#" + localidad + "#" + codigoPostal + "#" + baja;
     }
 
-    
 }

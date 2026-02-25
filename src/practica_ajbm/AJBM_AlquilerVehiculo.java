@@ -4,6 +4,7 @@
  */
 package practica_ajbm;
 
+import java.io.File;
 import java.util.Scanner;
 import practica_ajbm.Vehiculo;
 import utiles.ES;
@@ -36,7 +37,70 @@ public class AJBM_AlquilerVehiculo {
     private static int numCliente = 0;
     private static int numAlquiler = 0;
 
+    //CARGAR DATOS
+    private static void leerDatos() {
+        File fichero;
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File(rutatxtC));
+
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String[] atributos = linea.split("#");
+
+                if (atributos[0].equals("Cliente")) {
+                    String dni = atributos[1];
+                    String nombre = atributos[2];
+                    String direccion = atributos[3];
+                    String localidad = atributos[4];
+                    String codigoPostal = atributos[5];
+                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+                }
+                
+                if (atributos[0].equals("Alquile")) {
+                    String dni = atributos[1];
+                    String nombre = atributos[2];
+                    String direccion = atributos[3];
+                    String localidad = atributos[4];
+                    String codigoPostal = atributos[5];
+                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+                }
+
+                if (atributos[0].equals("Cliente")) {
+                    String dni = atributos[1];
+                    String nombre = atributos[2];
+                    String direccion = atributos[3];
+                    String localidad = atributos[4];
+                    String codigoPostal = atributos[5];
+                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+                }
+
+                if (atributos[0].equals("Cliente")) {
+                    String dni = atributos[1];
+                    String nombre = atributos[2];
+                    String direccion = atributos[3];
+                    String localidad = atributos[4];
+                    String codigoPostal = atributos[5];
+                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+                }
+
+                if (atributos[0].equals("Cliente")) {
+                    String dni = atributos[1];
+                    String nombre = atributos[2];
+                    String direccion = atributos[3];
+                    String localidad = atributos[4];
+                    String codigoPostal = atributos[5];
+                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error leyendo clientes:" + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
+        leerDatos();
         Scanner sc = new Scanner(System.in);
         String dni;
         String matricula;
@@ -92,8 +156,15 @@ public class AJBM_AlquilerVehiculo {
                     ListarAlquiler();
                     break;
                 case 12:
-                    guardarDatosTXT();
-                    guardarDatosDAT();
+                    int elegir = ES.leerEntero("Elige como quieres guardar los datos:"
+                            + "\n1- Guardar datos .txt"
+                            + "\n2- Guardar datos .dat");
+                    if (elegir == 1) {
+                        guardarDatosTXT();
+                    } else if (elegir == 2) {
+                        guardarDatosDAT();
+                    }
+
                     break;
                 case 13:
                     int tipo = ES.leerEntero("¿Cual archivo quieres leer?"
@@ -101,14 +172,35 @@ public class AJBM_AlquilerVehiculo {
                             + "\n 2. Archivo Vehiculos"
                             + "\n 3. Archivo Alquleres");
                     if (tipo == 1) {
-                        ES.leerArchivo(rutadatC);
-                        ES.leerArchivo(rutatxtC);
+                        elegir = ES.leerEntero("Elige como quieres guardar los datos:"
+                                + "\n1- Leer datos .txt"
+                                + "\n2- Leer datos .dat");
+                        if (elegir == 1) {
+                            System.out.println(ES.leerArchivo(rutatxtC));
+
+                        } else if (elegir == 2) {
+                            System.out.println(ES.leerArchivo(rutadatC));
+                        }
                     } else if (tipo == 2) {
-                        ES.leerArchivo(rutadatV);
-                        ES.leerArchivo(rutatxtV);
+                        elegir = ES.leerEntero("Elige como quieres guardar los datos:"
+                                + "\n1- Leer datos .txt"
+                                + "\n2- Leer datos .dat");
+                        if (elegir == 1) {
+                            ES.leerArchivo(rutatxtV);
+
+                        } else if (elegir == 2) {
+                            ES.leerArchivo(rutadatV);
+                        }
                     } else if (tipo == 3) {
-                        ES.leerArchivo(rutadatA);
-                        ES.leerArchivo(rutatxtA);
+                        elegir = ES.leerEntero("Elige como quieres guardar los datos:"
+                                + "\n1- Leer datos .txt"
+                                + "\n2- Leer datos .dat");
+                        if (elegir == 1) {
+                            ES.leerArchivo(rutatxtA);
+
+                        } else if (elegir == 2) {
+                            ES.leerArchivo(rutadatA);
+                        }
                     } else {
                         System.out.println("Esa opcion no es correcta");
                     }
@@ -122,25 +214,25 @@ public class AJBM_AlquilerVehiculo {
 
         for (int i = 0; i < numCliente; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutatxtC, clientes[i].toString(), true);
+                ES.escribirArchivo(rutatxtC, clientes[i].toEscribir(), true);
             } else {
-                ES.escribirArchivo(rutatxtC, clientes[i].toString(), false);
+                ES.escribirArchivo(rutatxtC, clientes[i].toEscribir(), false);
             }
         }
 
         for (int i = 0; i < numVehiculo; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutatxtV, vehiculos[i].toString(), true);
+                ES.escribirArchivo(rutatxtV, vehiculos[i].toEscribir(), true);
             } else {
-                ES.escribirArchivo(rutatxtV, vehiculos[i].toString(), false);
+                ES.escribirArchivo(rutatxtV, vehiculos[i].toEscribir(), false);
             }
         }
 
         for (int i = 0; i < numAlquiler; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutatxtA, alquileres[i].toString(), true);
+                ES.escribirArchivo(rutatxtA, alquileres[i].toEscribir(), true);
             } else {
-                ES.escribirArchivo(rutatxtA, alquileres[i].toString(), false);
+                ES.escribirArchivo(rutatxtA, alquileres[i].toEscribir(), false);
             }
         }
 
@@ -150,25 +242,25 @@ public class AJBM_AlquilerVehiculo {
 
         for (int i = 0; i < numCliente; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutadatC, clientes[i].toString(), true);
+                ES.escribirArchivo(rutadatC, clientes[i].toEscribir(), true);
             } else {
-                ES.escribirArchivo(rutadatC, clientes[i].toString(), false);
+                ES.escribirArchivo(rutadatC, clientes[i].toEscribir(), false);
             }
         }
 
         for (int i = 0; i < numVehiculo; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutadatV, vehiculos[i].toString(), true);
+                ES.escribirArchivo(rutadatV, vehiculos[i].toEscribir(), true);
             } else {
-                ES.escribirArchivo(rutadatV, vehiculos[i].toString(), false);
+                ES.escribirArchivo(rutadatV, vehiculos[i].toEscribir(), false);
             }
         }
 
         for (int i = 0; i < numAlquiler; i++) {
             if (i == 0) {
-                ES.escribirArchivo(rutadatA, alquileres[i].toString(), true);
+                ES.escribirArchivo(rutadatA, alquileres[i].toEscribir(), true);
             } else {
-                ES.escribirArchivo(rutadatA, alquileres[i].toString(), false);
+                ES.escribirArchivo(rutadatA, alquileres[i].toEscribir(), false);
             }
         }
 

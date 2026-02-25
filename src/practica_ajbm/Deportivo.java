@@ -41,4 +41,7 @@ public class Deportivo extends Turismo {
         return sb.toString();
     }
 
+    public String toEscribir() {
+        return "Deportivo#" + super.toEscribir() + "#" + descapotable + "#" + cambio;
+    }
 }
