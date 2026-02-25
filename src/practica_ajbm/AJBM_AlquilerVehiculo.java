@@ -5,6 +5,7 @@
 package practica_ajbm;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import practica_ajbm.Vehiculo;
 import utiles.ES;
@@ -56,14 +57,13 @@ public class AJBM_AlquilerVehiculo {
                     String codigoPostal = atributos[5];
                     anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
                 }
-                
-                if (atributos[0].equals("Alquile")) {
+
+                if (atributos[0].equals("Alquiler")) {
                     String dni = atributos[1];
                     String nombre = atributos[2];
                     String direccion = atributos[3];
                     String localidad = atributos[4];
                     String codigoPostal = atributos[5];
-                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
                 }
 
                 if (atributos[0].equals("Cliente")) {
@@ -618,8 +618,10 @@ public class AJBM_AlquilerVehiculo {
         if (!v.isDisponible()) {
             System.out.println("");
         }
+        LocalDateTime fechacierre = null;
+
         if (alquileres[numAlquiler] == null) {
-            alquileres[numAlquiler] = new Alquiler(c, v);
+            alquileres[numAlquiler] = new Alquiler(c, v, LocalDateTime.now(), fechacierre);
             numAlquiler++;
             ES.escribir("Alquiler abierto correctamente.");
         } else {

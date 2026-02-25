@@ -16,14 +16,14 @@ public class Alquiler {
     //Atributo
     private final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
     private final double PRECIO_DIA = 43.0;
-    private LocalDateTime fecha;
+    private LocalDateTime fecha, fechaCierre;
     private int dias;
     private Cliente cliente;
     private Vehiculo turismo;
     private boolean baja;
 
     //Constructores
-    public Alquiler(Cliente c, Vehiculo v) {
+    public Alquiler(Cliente c, Vehiculo v, LocalDateTime fecha, LocalDateTime fechaCierre) {
         fecha = LocalDateTime.now();
         this.turismo = v;
         this.cliente = c;
@@ -56,6 +56,7 @@ public class Alquiler {
             dias = 1;
         }
         getTurismo().setDisponible(true);
+        fechaCierre = LocalDateTime.now();
 
     }
 
