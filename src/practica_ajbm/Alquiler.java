@@ -2,28 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ajbm_practica;
+package practica_ajbm;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author alvis
+ * @author dam-29
  */
 public class Alquiler {
 
     //Atributo
     private final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
     private final double PRECIO_DIA = 43.0;
-    private LocalDateTime fecha;
+    private LocalDateTime fecha, fechaCierre;
     private int dias;
     private Cliente cliente;
     private Vehiculo turismo;
     private boolean baja;
 
     //Constructores
-    public Alquiler(Cliente c, Vehiculo v) {
+    public Alquiler(Cliente c, Vehiculo v, LocalDateTime fecha, LocalDateTime fechaCierre) {
         fecha = LocalDateTime.now();
         this.turismo = v;
         this.cliente = c;
@@ -56,6 +56,7 @@ public class Alquiler {
             dias = 1;
         }
         getTurismo().setDisponible(true);
+        fechaCierre = LocalDateTime.now();
 
     }
 
@@ -76,13 +77,15 @@ public class Alquiler {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Alquiler");
-        sb.append("------------------");
-        sb.append("\n Fecha: ").append(fecha);
-        sb.append("\n Dias: ").append(dias);
-        sb.append("\n Cliente: ").append(cliente);
-        sb.append("\n Turismo: ").append(turismo);
+        sb.append("Alquiler: \n");
+        sb.append("\nFecha: ").append(fecha);
+        sb.append("\nDias: ").append(dias);
+        sb.append("\nCliente: ").append(cliente);
+        sb.append("\nTurismo: ").append(turismo);
         return sb.toString();
     }
 
+    public String toEscribir() {
+        return "Alquiler#" + fecha + "#" + dias + "#" + cliente + "#" + turismo;
+    }
 }
