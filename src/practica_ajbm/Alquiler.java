@@ -6,6 +6,7 @@ package practica_ajbm;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -16,15 +17,16 @@ public class Alquiler {
     //Atributo
     private final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
     private final double PRECIO_DIA = 43.0;
-    private LocalDateTime fecha, fechaCierre;
+    private LocalDateTime fechaInicio, fechaCierre;
     private int dias;
     private Cliente cliente;
     private Vehiculo turismo;
     private boolean baja;
 
     //Constructores
-    public Alquiler(Cliente c, Vehiculo v, LocalDateTime fecha, LocalDateTime fechaCierre) {
-        fecha = LocalDateTime.now();
+    public Alquiler(Cliente c, Vehiculo v, LocalDateTime fechaInicio, LocalDateTime fechaCierre) {
+        fechaInicio = LocalDateTime.now();
+        fechaCierre = null;
         this.turismo = v;
         this.cliente = c;
         this.dias = 0;
@@ -34,7 +36,7 @@ public class Alquiler {
 
     //GETTER
     public LocalDateTime getFecha() {
-        return fecha;
+        return fechaInicio;
     }
 
     public int getDias() {
@@ -51,23 +53,20 @@ public class Alquiler {
 
     //METODOS
     public void cerrar() {
-        dias = diferenciaDias(getFecha());
-        if (dias <= 0) {
-            dias = 1;
+        if (fechaCierre != null) {
+            System.out.println("Ya esta cerrado");
+        } else {
+            fechaCierre = LocalDateTime.now();
+            dias = diferenciaDias(getFecha());
+            if (dias <= 0) {
+                dias = 1;
+            }
+            getTurismo().setDisponible(true);
         }
-        getTurismo().setDisponible(true);
-        fechaCierre = LocalDateTime.now();
-
     }
 
     private int diferenciaDias(LocalDateTime fecha2) {
-        LocalDateTime fechaHoy = LocalDateTime.now();
-        int diferencia = 0;
-
-        while (fechaHoy != fecha2) {
-            diferencia++;
-        }
-        return diferencia;
+        return (int) ChronoUnit.DAYS.between(fecha2, LocalDateTime.now());
     }
 
     public double precioAlquiler() {
@@ -78,14 +77,20 @@ public class Alquiler {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Alquiler: \n");
-        sb.append("\nFecha: ").append(fecha);
-        sb.append("\nDias: ").append(dias);
         sb.append("\nCliente: ").append(cliente);
         sb.append("\nTurismo: ").append(turismo);
+        sb.append("\nFecha de Inicio: ").append(fechaInicio);
+        sb.append("\nFecha de Cierre: ").append(fechaCierre);
+        sb.append("\nDias: ").append(dias);
+
         return sb.toString();
     }
 
     public String toEscribir() {
-        return "Alquiler#" + fecha + "#" + dias + "#" + cliente + "#" + turismo;
+        return "Alquiler#" 
+                + cliente.getDni() + "#" 
+                + turismo.getMatricula() + "#" 
+                + fechaInicio + "#" 
+                + (fechaCierre == null ? "Abierto" : fechaCierre);
     }
 }

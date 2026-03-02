@@ -49,6 +49,7 @@ public class AJBM_AlquilerVehiculo {
                 String linea = sc.nextLine();
                 String[] atributos = linea.split("#");
 
+                //leer datos clientes
                 if (atributos[0].equals("Cliente")) {
                     String dni = atributos[1];
                     String nombre = atributos[2];
@@ -58,14 +59,15 @@ public class AJBM_AlquilerVehiculo {
                     anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
                 }
 
+                //Leer datos de un alquiler
                 if (atributos[0].equals("Alquiler")) {
                     String dni = atributos[1];
-                    String nombre = atributos[2];
-                    String direccion = atributos[3];
-                    String localidad = atributos[4];
-                    String codigoPostal = atributos[5];
+                    String matricula = atributos[2];
+                    String fechaI = atributos[3];
+                    String fechaC = atributos[4];
                 }
 
+                //Leer datos de los vehiculos
                 if (atributos[0].equals("Cliente")) {
                     String dni = atributos[1];
                     String nombre = atributos[2];
