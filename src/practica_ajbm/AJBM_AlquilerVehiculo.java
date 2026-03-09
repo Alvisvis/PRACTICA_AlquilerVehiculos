@@ -6,6 +6,7 @@ package practica_ajbm;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 import practica_ajbm.Vehiculo;
 import utiles.ES;
@@ -30,9 +31,9 @@ public class AJBM_AlquilerVehiculo {
     private static int MAX_CLIENTES = 50;
     private static int MAX_ALQUILERES = 50;
 
-    private static Vehiculo[] vehiculos = new Vehiculo[MAX_VEHICULOS];
-    private static Cliente[] clientes = new Cliente[MAX_CLIENTES];
-    private static Alquiler[] alquileres = new Alquiler[MAX_ALQUILERES];
+    private static ArrayList<Vehiculo> vehiculos = new ArrayList();
+    private static ArrayList<Cliente> clientes = new ArrayList();
+    private static ArrayList<Alquiler> alquileres = new ArrayList();
 
     private static int numVehiculo = 0;
     private static int numCliente = 0;
@@ -409,7 +410,7 @@ public class AJBM_AlquilerVehiculo {
         }
         if (numCliente < MAX_CLIENTES) {
             if (getCliente(c.getDni()) == null) {
-                clientes[numCliente] = c;
+                clientes.add(c);
                 numCliente++;
                 ES.escribirLn("Cliente añadido correctamente.");
             }
@@ -430,14 +431,9 @@ public class AJBM_AlquilerVehiculo {
             dni = ES.leerCadena("Cual es el DNI del cliente?");
         }
 
-        boolean encontrado = false;
-        Cliente c;
-
-        for (int i = 0; i < numCliente && !encontrado; i++) {
-            if (clientes[i].getDni().equals(dni)) {
-                c = getCliente(dni);
-                c.setBaja(true);
-                encontrado = true;
+        for (Cliente cliente : clientes) {
+            if (cliente.getDni().equals(dni)) {
+                cliente.setBaja(true);
                 ES.escribir("Cliente borrado existosamente");
             } else {
                 System.out.println("Error. Cliente no ha sido borrado, no existe ningun cliente con ese DNI");
@@ -451,10 +447,8 @@ public class AJBM_AlquilerVehiculo {
     private static void ListarCliente() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Clientes");
-        for (int i = 0; i < MAX_CLIENTES; i++) {
-            if (clientes[i] != null) {
-                System.out.println(clientes[i] + " ");
-            }
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente.toString() + " ");
         }
     }
 
@@ -596,7 +590,7 @@ public class AJBM_AlquilerVehiculo {
         }
         if (numVehiculo < MAX_VEHICULOS) {
             if (getVehiculos(v.getMatricula()) == null) {
-                vehiculos[numVehiculo] = v;
+                vehiculos.add(v);
                 numVehiculo++;
                 ES.escribirLn("Vehiculo añadido correctamente.");
             }
@@ -613,13 +607,9 @@ public class AJBM_AlquilerVehiculo {
             matricula = ES.leerCadena("Cual es el matricula del cliente?");
         }
 
-        boolean encontrado = false;
-        Vehiculo v = null;
-
-        for (int i = 0; i < numVehiculo && !encontrado; i++) {
-            if (vehiculos[i].getMatricula().equals(matricula)) {
-                v.setBaja(true);
-                encontrado = true;
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getMatricula().equals(matricula)) {
+                vehiculo.setBaja(true);
                 System.out.println("Vehiculo dado de baja existosamente");
             }
         }
@@ -632,10 +622,8 @@ public class AJBM_AlquilerVehiculo {
     private static void ListarVehiculo() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Vehiculos");
-        for (int i = 0; i < MAX_VEHICULOS; i++) {
-            if (vehiculos[i] != null) {
-                System.out.println(vehiculos[i] + " ");
-            }
+        for (Vehiculo vehiculo : vehiculos) {
+            System.out.println(vehiculo.toString() + " ");
         }
     }
 
@@ -680,14 +668,10 @@ public class AJBM_AlquilerVehiculo {
      * @param a
      */
     private static void nuevoAlquiler(Alquiler a) {
-
-        if (alquileres[numAlquiler] == null) {
-            alquileres[numAlquiler] = a;
+        for (Alquiler alquilere : alquileres) {
+            alquileres.add(a);
             numAlquiler++;
             ES.escribir("Alquiler abierto correctamente.");
-        } else {
-            System.out.println("ERROR");
-
         }
     }
 
