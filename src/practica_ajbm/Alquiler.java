@@ -24,7 +24,7 @@ public class Alquiler {
     private boolean baja;
 
     //Constructores
-    public Alquiler(Cliente c, Vehiculo v, LocalDateTime fechaInicio, LocalDateTime fechaCierre) {
+    public Alquiler(Cliente c , Vehiculo v, LocalDateTime fechaInicio, LocalDateTime fechaCierre) {
         fechaInicio = LocalDateTime.now();
         fechaCierre = null;
         this.turismo = v;

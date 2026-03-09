@@ -62,39 +62,95 @@ public class AJBM_AlquilerVehiculo {
                 //Leer datos de un alquiler
                 if (atributos[0].equals("Alquiler")) {
                     String dni = atributos[1];
+                    Cliente c = getCliente(dni);
+
                     String matricula = atributos[2];
+                    Vehiculo v = getVehiculos(matricula);
+
                     String fechaI = atributos[3];
                     String fechaC = atributos[4];
+                    LocalDateTime fechaInicio = LocalDateTime.parse(fechaI);
+                    LocalDateTime fechaFinal = LocalDateTime.parse(fechaC);
+
+                    nuevoAlquiler(alquileres[numAlquiler++] = new Alquiler(c, v, fechaInicio, fechaFinal));
                 }
 
                 //Leer datos de los vehiculos
-                if (atributos[0].equals("Cliente")) {
-                    String dni = atributos[1];
-                    String nombre = atributos[2];
-                    String direccion = atributos[3];
-                    String localidad = atributos[4];
-                    String codigoPostal = atributos[5];
-                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+                if (atributos[0].equals("Turismo")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
+
+                    int nPuertas = Integer.parseInt(atributos[7]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
+
+                    anadirVehiculos(vehiculos[numVehiculo++] = new Turismo(nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada));
                 }
 
-                if (atributos[0].equals("Cliente")) {
-                    String dni = atributos[1];
-                    String nombre = atributos[2];
-                    String direccion = atributos[3];
-                    String localidad = atributos[4];
-                    String codigoPostal = atributos[5];
-                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
-                }
+                if (atributos[0].equals("Deportivo")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
 
-                if (atributos[0].equals("Cliente")) {
-                    String dni = atributos[1];
-                    String nombre = atributos[2];
-                    String direccion = atributos[3];
-                    String localidad = atributos[4];
-                    String codigoPostal = atributos[5];
-                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
-                }
+                    int nPuertas = Integer.parseInt(atributos[7]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
 
+                    boolean descapotable = Boolean.parseBoolean(atributos[9]);
+                    Enumerados.CajaCambio cambio = Enumerados.CajaCambio.valueOf(atributos[10]);
+
+                    anadirVehiculos(vehiculos[numVehiculo++] = new Deportivo(cambio, descapotable, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada));
+                }
+                if (atributos[0].equals("Familiar")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
+
+                    int nPuertas = Integer.parseInt(atributos[7]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
+
+                    int nPlazas = Integer.parseInt(atributos[9]);
+                    boolean sillaBebe = Boolean.parseBoolean(atributos[10]);
+
+                    anadirVehiculos(vehiculos[numVehiculo++] = new Familiar(nPlazas, sillaBebe, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada));
+                }
+                if (atributos[0].equals("Mercancias")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
+
+                    int pma = Integer.parseInt(atributos[7]);
+                    int volumen = Integer.parseInt(atributos[8]);
+
+                    anadirVehiculos(vehiculos[numVehiculo++] = new Mercancias(pma, volumen, matricula, marca, modelo, cilindrada));
+                }
+                if (atributos[0].equals("Furgoneta")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
+
+                    int pma = Integer.parseInt(atributos[7]);
+                    int volumen = Integer.parseInt(atributos[8]);
+
+                    boolean refrigerado = Boolean.parseBoolean(atributos[9]);
+                    Enumerados.Tamano tamanio = Enumerados.Tamano.valueOf(atributos[10]);
+
+                    anadirVehiculos(vehiculos[numVehiculo++] = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada));
+                }
             }
         } catch (Exception e) {
             System.out.println("Error leyendo clientes:" + e.getMessage());
@@ -149,7 +205,8 @@ public class AJBM_AlquilerVehiculo {
                     }
                     break;
                 case 9:
-                    insertarAlquiler();
+                    Alquiler a = insertarAlquler();
+                    nuevoAlquiler(a);
                     break;
                 case 10:
                     eliminarAlquiler();
@@ -584,10 +641,12 @@ public class AJBM_AlquilerVehiculo {
 
     //METODOS ALQUILER
     /**
-     * Metodo para insertar datos en la array de alquileres, crea 1 objeto
-     * vehiculo y otro cliente para luego usar el metodo nuevoAlquiler
+     * Metodo para añadir un alquiler
+     *
+     * @param c
+     * @param v
      */
-    private static void insertarAlquiler() {
+    private static Alquiler insertarAlquler() {
         String dni = ES.leerCadena("DNI del cliente: ");
         while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
@@ -606,24 +665,24 @@ public class AJBM_AlquilerVehiculo {
         if (v == null) {
             System.out.println("No existe ese vehiculo con esa matricula");
         }
-        nuevoAlquiler(c, v);
-    }
-
-    /**
-     * Metodo para añadir un alquiler
-     *
-     * @param c
-     * @param v
-     */
-    private static void nuevoAlquiler(Cliente c, Vehiculo v) {
-
         if (!v.isDisponible()) {
             System.out.println("");
         }
         LocalDateTime fechacierre = null;
 
+        return new Alquiler(c, v, fechacierre, fechacierre);
+
+    }
+
+    /**
+     * Nuevo alquiler agrega al array alquileres un objeto alquiler
+     *
+     * @param a
+     */
+    private static void nuevoAlquiler(Alquiler a) {
+
         if (alquileres[numAlquiler] == null) {
-            alquileres[numAlquiler] = new Alquiler(c, v, LocalDateTime.now(), fechacierre);
+            alquileres[numAlquiler] = a;
             numAlquiler++;
             ES.escribir("Alquiler abierto correctamente.");
         } else {

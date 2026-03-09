@@ -32,7 +32,7 @@ public class Furgoneta extends Mercancias {
         StringBuilder sb = new StringBuilder();
         sb.append("\nFurgoneta: ");
         sb.append("\n").append(super.toString());
-        sb.append("\nEsta refrigerado? ").append(refrigerado);
+        sb.append("\nEsta refrigerado? ").append(refrigerado? "Si" : "No");
         sb.append("\nTamaño: ").append(tamanio);
         sb.append("");
         return sb.toString();
