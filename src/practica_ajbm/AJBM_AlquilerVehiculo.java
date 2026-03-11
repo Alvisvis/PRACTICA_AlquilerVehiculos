@@ -45,6 +45,7 @@ public class AJBM_AlquilerVehiculo {
         Scanner sc = null;
         try {
             sc = new Scanner(new File(rutatxtC));
+            sc = new Scanner(new File(rutadatC));
 
             while (sc.hasNextLine()) {
                 String linea = sc.nextLine();
@@ -57,8 +58,119 @@ public class AJBM_AlquilerVehiculo {
                     String direccion = atributos[3];
                     String localidad = atributos[4];
                     String codigoPostal = atributos[5];
-                    anadirCliente(clientes[numCliente++] = new Cliente(dni, nombre, direccion, localidad, codigoPostal));
+
+                    Cliente c = new Cliente(dni, nombre, direccion, localidad, codigoPostal);
+                    anadirCliente(c);
                 }
+            }
+        } catch (Exception e) {
+            System.out.println("Error leyendo clientes:" + e.getMessage());
+        }
+
+        try {
+            sc = new Scanner(new File(rutatxtV));
+            sc = new Scanner(new File(rutadatV));
+
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String[] atributos = linea.split("#");
+
+                //Leer datos de los vehiculos
+                if (atributos[0].equals("Turismo")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
+
+                    int nPuertas = Integer.parseInt(atributos[7]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
+
+                    Turismo t = new Turismo(nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
+                    anadirVehiculos(t);
+                }
+
+                if (atributos[0].equals("Deportivo")) {
+                    String tipo = atributos[1];
+                    String matricula = atributos[2];
+                    String marca = atributos[3];
+                    String modelo = atributos[4];
+                    int cilindrada = Integer.parseInt(atributos[5]);
+                    boolean disponible = Boolean.parseBoolean(atributos[6]);
+                    boolean baja = Boolean.parseBoolean(atributos[7]);
+
+                    int nPuertas = Integer.parseInt(atributos[8]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[9]);
+
+                    boolean descapotable = Boolean.parseBoolean(atributos[10]);
+                    Enumerados.CajaCambio cambio = Enumerados.CajaCambio.valueOf(atributos[11]);
+
+                    Deportivo d = new Deportivo(cambio, descapotable, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
+                    anadirVehiculos(d);
+                }
+                if (atributos[0].equals("Familiar")) {
+                    String tipo = atributos[1];
+                    String matricula = atributos[2];
+                    String marca = atributos[3];
+                    String modelo = atributos[4];
+                    int cilindrada = Integer.parseInt(atributos[5]);
+                    boolean disponible = Boolean.parseBoolean(atributos[6]);
+                    boolean baja = Boolean.parseBoolean(atributos[7]);
+
+                    int nPuertas = Integer.parseInt(atributos[8]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[9]);
+
+                    int nPlazas = Integer.parseInt(atributos[10]);
+                    boolean sillaBebe = Boolean.parseBoolean(atributos[11]);
+
+                    Familiar fam = new Familiar(nPlazas, sillaBebe, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
+                    anadirVehiculos(fam);
+                }
+                if (atributos[0].equals("Mercancias")) {
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
+
+                    int pma = Integer.parseInt(atributos[7]);
+                    int volumen = Integer.parseInt(atributos[8]);
+
+                    Mercancias m = new Mercancias(pma, volumen, matricula, marca, modelo, cilindrada);
+                    anadirVehiculos(m);
+                }
+                if (atributos[0].equals("Furgoneta")) {
+                    String tipo = atributos[1];
+                    String matricula = atributos[2];
+                    String marca = atributos[3];
+                    String modelo = atributos[4];
+                    int cilindrada = Integer.parseInt(atributos[5]);
+                    boolean disponible = Boolean.parseBoolean(atributos[6]);
+                    boolean baja = Boolean.parseBoolean(atributos[7]);
+
+                    int pma = Integer.parseInt(atributos[8]);
+                    int volumen = Integer.parseInt(atributos[9]);
+
+                    boolean refrigerado = Boolean.parseBoolean(atributos[10]);
+                    Enumerados.Tamano tamanio = Enumerados.Tamano.valueOf(atributos[11]);
+
+                    Furgoneta fur = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada);
+                    anadirVehiculos(fur);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error leyendo Vehiculo:" + e.getMessage());
+        }
+
+        try {
+            sc = new Scanner(new File(rutatxtA));
+            sc = new Scanner(new File(rutadatA));
+
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String[] atributos = linea.split("#");
 
                 //Leer datos de un alquiler
                 if (atributos[0].equals("Alquiler")) {
@@ -73,88 +185,13 @@ public class AJBM_AlquilerVehiculo {
                     LocalDateTime fechaInicio = LocalDateTime.parse(fechaI);
                     LocalDateTime fechaFinal = LocalDateTime.parse(fechaC);
 
-                    nuevoAlquiler(alquileres[numAlquiler++] = new Alquiler(c, v, fechaInicio, fechaFinal));
-                }
-
-                //Leer datos de los vehiculos
-                if (atributos[0].equals("Turismo")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int nPuertas = Integer.parseInt(atributos[7]);
-                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
-
-                    anadirVehiculos(vehiculos[numVehiculo++] = new Turismo(nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada));
-                }
-
-                if (atributos[0].equals("Deportivo")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int nPuertas = Integer.parseInt(atributos[7]);
-                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
-
-                    boolean descapotable = Boolean.parseBoolean(atributos[9]);
-                    Enumerados.CajaCambio cambio = Enumerados.CajaCambio.valueOf(atributos[10]);
-
-                    anadirVehiculos(vehiculos[numVehiculo++] = new Deportivo(cambio, descapotable, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada));
-                }
-                if (atributos[0].equals("Familiar")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int nPuertas = Integer.parseInt(atributos[7]);
-                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
-
-                    int nPlazas = Integer.parseInt(atributos[9]);
-                    boolean sillaBebe = Boolean.parseBoolean(atributos[10]);
-
-                    anadirVehiculos(vehiculos[numVehiculo++] = new Familiar(nPlazas, sillaBebe, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada));
-                }
-                if (atributos[0].equals("Mercancias")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int pma = Integer.parseInt(atributos[7]);
-                    int volumen = Integer.parseInt(atributos[8]);
-
-                    anadirVehiculos(vehiculos[numVehiculo++] = new Mercancias(pma, volumen, matricula, marca, modelo, cilindrada));
-                }
-                if (atributos[0].equals("Furgoneta")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int pma = Integer.parseInt(atributos[7]);
-                    int volumen = Integer.parseInt(atributos[8]);
-
-                    boolean refrigerado = Boolean.parseBoolean(atributos[9]);
-                    Enumerados.Tamano tamanio = Enumerados.Tamano.valueOf(atributos[10]);
-
-                    anadirVehiculos(vehiculos[numVehiculo++] = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada));
+                    Alquiler a = new Alquiler(c, v, fechaInicio, fechaFinal);
+                    nuevoAlquiler(a);
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error leyendo clientes:" + e.getMessage());
+            System.out.println("Error leyendo Alquiler:" + e.getMessage());
+
         }
     }
 
@@ -181,9 +218,11 @@ public class AJBM_AlquilerVehiculo {
                     ListarCliente();
                     break;
                 case 4:
-                    for (int i = 0; i < numCliente; i++) {
-                        if (clientes[i] != null && clientes[i].isBaja()) {
-                            System.out.println(clientes[i].toString());
+                    for (Cliente cliente : clientes) {
+                        if (cliente.isBaja()) {
+                            System.out.println(cliente.toString() + " ");
+                        } else {
+                            System.out.println("No hay clientes de baja");
                         }
                     }
                     break;
@@ -199,11 +238,14 @@ public class AJBM_AlquilerVehiculo {
                     ListarVehiculo();
                     break;
                 case 8:
-                    for (int i = 0; i < numVehiculo; i++) {
-                        if (vehiculos[i] != null && vehiculos[i].isBaja()) {
-                            System.out.println(vehiculos[i].toString());
+                    for (Vehiculo vehiculo : vehiculos) {
+                        if (vehiculo.isBaja()) {
+                            System.out.println(vehiculo.toString() + " ");
+                        } else {
+                            System.out.println("No hay vehiculo de baja");
                         }
                     }
+
                     break;
                 case 9:
                     Alquiler a = insertarAlquler();
@@ -272,55 +314,54 @@ public class AJBM_AlquilerVehiculo {
     //ARCHIVOS
     public static void guardarDatosTXT() {
 
-        for (int i = 0; i < numCliente; i++) {
-            if (i == 0) {
-                ES.escribirArchivo(rutatxtC, clientes[i].toEscribir(), true);
+        for (Cliente cliente : clientes) {
+            if (cliente == null) {
+                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), false);
             } else {
-                ES.escribirArchivo(rutatxtC, clientes[i].toEscribir(), false);
+                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), true);
             }
         }
 
-        for (int i = 0; i < numVehiculo; i++) {
-            if (i == 0) {
-                ES.escribirArchivo(rutatxtV, vehiculos[i].toEscribir(), true);
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo == null) {
+                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), false);
             } else {
-                ES.escribirArchivo(rutatxtV, vehiculos[i].toEscribir(), false);
+                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), true);
             }
         }
 
-        for (int i = 0; i < numAlquiler; i++) {
-            if (i == 0) {
-                ES.escribirArchivo(rutatxtA, alquileres[i].toEscribir(), true);
+        for (Alquiler alquilere : alquileres) {
+            if (alquilere == null) {
+                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), false);
             } else {
-                ES.escribirArchivo(rutatxtA, alquileres[i].toEscribir(), false);
+                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), true);
             }
         }
-
     }
 
     public static void guardarDatosDAT() {
 
-        for (int i = 0; i < numCliente; i++) {
-            if (i == 0) {
-                ES.escribirArchivo(rutadatC, clientes[i].toEscribir(), true);
+        for (Cliente cliente : clientes) {
+            if (cliente == null) {
+                ES.escribirArchivo(rutadatC, cliente.toEscribir(), false);
             } else {
-                ES.escribirArchivo(rutadatC, clientes[i].toEscribir(), false);
+                ES.escribirArchivo(rutadatC, cliente.toEscribir(), true);
             }
         }
 
-        for (int i = 0; i < numVehiculo; i++) {
-            if (i == 0) {
-                ES.escribirArchivo(rutadatV, vehiculos[i].toEscribir(), true);
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo == null) {
+                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), false);
             } else {
-                ES.escribirArchivo(rutadatV, vehiculos[i].toEscribir(), false);
+                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), true);
             }
         }
 
-        for (int i = 0; i < numAlquiler; i++) {
-            if (i == 0) {
-                ES.escribirArchivo(rutadatA, alquileres[i].toEscribir(), true);
+        for (Alquiler alquilere : alquileres) {
+            if (alquilere == null) {
+                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), false);
             } else {
-                ES.escribirArchivo(rutadatA, alquileres[i].toEscribir(), false);
+                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), true);
             }
         }
 
@@ -645,20 +686,24 @@ public class AJBM_AlquilerVehiculo {
             ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
             matricula = ES.leerCadena("Cual es el matricula del cliente?");
         }
+
         Cliente c = getCliente(dni);
         if (c == null) {
             System.out.println("No existe ese cliente con ese dni");
         }
+
         Vehiculo v = getVehiculos(matricula);
         if (v == null) {
             System.out.println("No existe ese vehiculo con esa matricula");
         }
-        if (!v.isDisponible()) {
-            System.out.println("");
-        }
-        LocalDateTime fechacierre = null;
 
-        return new Alquiler(c, v, fechacierre, fechacierre);
+        if (!v.isDisponible()) {
+            System.out.println("Este vehiculo no esta disponible");
+        }
+        LocalDateTime fechaInicio = null;
+        LocalDateTime fechaCierre = null;
+
+        return new Alquiler(c, v, fechaInicio, fechaCierre);
 
     }
 
@@ -717,33 +762,14 @@ public class AJBM_AlquilerVehiculo {
         int posicion = -1;
 
         // Buscar el alquiler
-        for (int i = 0; i < numAlquiler; i++) {
-            if (alquileres[i] != null
-                    && alquileres[i].getCliente().getDni().equals(c.getDni())
-                    && alquileres[i].getTurismo().getMatricula().equals(v.getMatricula())) {
-
-                posicion = i;
-                break;
+        for (Alquiler alquilere : alquileres) {
+            if (alquilere.getCliente() != null && alquilere.getTurismo() != null) {
+                alquilere.cerrar();
+                System.out.println("Alquiler cerrado");
+            } else {
+                System.out.println("No se ha encontrado el alquiler");
             }
         }
-
-        // Si no se encontró
-        if (posicion == -1) {
-            System.out.println("No se encontró el alquiler.");
-            return;
-        }
-
-        // Desplazar elementos hacia la izquierda
-        for (int i = posicion; i < numAlquiler - 1; i++) {
-            alquileres[i] = alquileres[i + 1];
-        }
-
-        // Limpiar última posición
-        alquileres[numAlquiler - 1] = null;
-
-        numAlquiler--;
-
-        System.out.println("Alquiler eliminado correctamente.");
     }
 
     /**
@@ -752,11 +778,8 @@ public class AJBM_AlquilerVehiculo {
     private static void ListarAlquiler() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Alquires");
-        for (int i = 0; i < MAX_ALQUILERES; i++) {
-            if (alquileres[i] != null) {
-                System.out.println(alquileres[i] + " ");
-            }
+        for (Alquiler alquilere : alquileres) {
+            System.out.println(alquilere.toString() + " ");
         }
     }
-
 }

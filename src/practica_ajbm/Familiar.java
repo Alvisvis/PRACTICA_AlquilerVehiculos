@@ -41,12 +41,12 @@ public class Familiar extends Turismo {
         sb.append("\nFamiliar: ");
         sb.append("\n").append(super.toString());
         sb.append("\nNumero de plazas: ").append(nPlazas);
-        sb.append("\nTiene silla de bebe? ").append(sillaBebe);
+        sb.append("\nTiene silla de bebe? ").append(sillaBebe? "Si" : "No");
         sb.append("");
         return sb.toString();
     }
 
     public String toEscribir() {
-        return "Familiar#" + super.toEscribir() + "#" + nPlazas + "#" + sillaBebe;
+        return "Familiar#" + super.toEscribir() + "#" + nPlazas + "#" + sillaBebe+ "#";
     }
 }

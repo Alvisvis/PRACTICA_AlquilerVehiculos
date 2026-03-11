@@ -91,6 +91,6 @@ public class Alquiler {
                 + cliente.getDni() + "#" 
                 + turismo.getMatricula() + "#" 
                 + fechaInicio + "#" 
-                + (fechaCierre == null ? "Abierto" : fechaCierre);
+                + (fechaCierre == null ? "Abierto" : fechaCierre) + "#";
     }
 }

@@ -45,6 +45,6 @@ public class Mercancias extends Vehiculo {
     }
 
     public String toEscribir() {
-        return "Mercancias#" + super.toEscribir() + "#" + pma + "#" + volumen;
+        return "Mercancias#" + super.toEscribir() + "#" + pma + "#" + volumen+ "#";
     }
 }
