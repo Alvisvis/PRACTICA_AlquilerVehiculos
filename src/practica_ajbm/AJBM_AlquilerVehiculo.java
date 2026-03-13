@@ -19,13 +19,13 @@ import utiles.Utilidades;
 public class AJBM_AlquilerVehiculo {
 
     //ATRIBUTOS
-    private static final String rutadatC = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\cliente_AJBM.dat";
-    private static final String rutadatV = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\vehiculo_AJBM.dat";
-    private static final String rutadatA = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\alquilers_AJBM.dat";
+    private static final String rutadatC = "cliente_AJBM.dat";
+    private static final String rutadatV = "vehiculo_AJBM.dat";
+    private static final String rutadatA = "alquilers_AJBM.dat";
 
-    private static final String rutatxtC = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\cliente_AJBM.txt";
-    private static final String rutatxtV = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\vehiculo_AJBM.txt";
-    private static final String rutatxtA = "C:\\Users\\dam1\\Documents\\NetBeansProjects\\Practica_AJBM\\alquilers_AJBM.txt";
+    private static final String rutatxtC = "cliente_AJBM.txt";
+    private static final String rutatxtV = "vehiculo_AJBM.txt";
+    private static final String rutatxtA = "alquilers_AJBM.txt";
 
     private static int MAX_VEHICULOS = 50;
     private static int MAX_CLIENTES = 50;

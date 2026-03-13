@@ -47,6 +47,6 @@ public class Familiar extends Turismo {
     }
 
     public String toEscribir() {
-        return "Familiar#" + super.toEscribir() + "#" + nPlazas + "#" + sillaBebe+ "#";
+        return "Familiar#" + super.toEscribir() + "#" + nPlazas + "#" + sillaBebe;
     }
 }
