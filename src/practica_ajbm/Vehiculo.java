@@ -84,7 +84,7 @@ public abstract class Vehiculo {
     }
 
     public String toEscribir() {
-        return matricula + "#" + marca + "#" + modelo + "#" + cilindrada + "#" + disponible + "#" + baja;
+        return matricula + "#" + marca + "#" + modelo + "#" + cilindrada + "#" + disponible + "#" + baja + "#";
     }
 
 }

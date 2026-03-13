@@ -44,7 +44,6 @@ public class AJBM_AlquilerVehiculo {
         File fichero;
         Scanner sc = null;
         try {
-            sc = new Scanner(new File(rutatxtC));
             sc = new Scanner(new File(rutadatC));
 
             while (sc.hasNextLine()) {
@@ -68,7 +67,6 @@ public class AJBM_AlquilerVehiculo {
         }
 
         try {
-            sc = new Scanner(new File(rutatxtV));
             sc = new Scanner(new File(rutadatV));
 
             while (sc.hasNextLine()) {
@@ -92,37 +90,35 @@ public class AJBM_AlquilerVehiculo {
                 }
 
                 if (atributos[0].equals("Deportivo")) {
-                    String tipo = atributos[1];
-                    String matricula = atributos[2];
-                    String marca = atributos[3];
-                    String modelo = atributos[4];
-                    int cilindrada = Integer.parseInt(atributos[5]);
-                    boolean disponible = Boolean.parseBoolean(atributos[6]);
-                    boolean baja = Boolean.parseBoolean(atributos[7]);
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
 
-                    int nPuertas = Integer.parseInt(atributos[8]);
-                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[9]);
+                    int nPuertas = Integer.parseInt(atributos[7]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
 
-                    boolean descapotable = Boolean.parseBoolean(atributos[10]);
-                    Enumerados.CajaCambio cambio = Enumerados.CajaCambio.valueOf(atributos[11]);
+                    boolean descapotable = Boolean.parseBoolean(atributos[9]);
+                    Enumerados.CajaCambio cambio = Enumerados.CajaCambio.valueOf(atributos[10]);
 
                     Deportivo d = new Deportivo(cambio, descapotable, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
                     anadirVehiculos(d);
                 }
                 if (atributos[0].equals("Familiar")) {
-                    String tipo = atributos[1];
-                    String matricula = atributos[2];
-                    String marca = atributos[3];
-                    String modelo = atributos[4];
-                    int cilindrada = Integer.parseInt(atributos[5]);
-                    boolean disponible = Boolean.parseBoolean(atributos[6]);
-                    boolean baja = Boolean.parseBoolean(atributos[7]);
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
 
-                    int nPuertas = Integer.parseInt(atributos[8]);
-                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[9]);
+                    int nPuertas = Integer.parseInt(atributos[7]);
+                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
 
-                    int nPlazas = Integer.parseInt(atributos[10]);
-                    boolean sillaBebe = Boolean.parseBoolean(atributos[11]);
+                    int nPlazas = Integer.parseInt(atributos[9]);
+                    boolean sillaBebe = Boolean.parseBoolean(atributos[10]);
 
                     Familiar fam = new Familiar(nPlazas, sillaBebe, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
                     anadirVehiculos(fam);
@@ -142,19 +138,18 @@ public class AJBM_AlquilerVehiculo {
                     anadirVehiculos(m);
                 }
                 if (atributos[0].equals("Furgoneta")) {
-                    String tipo = atributos[1];
-                    String matricula = atributos[2];
-                    String marca = atributos[3];
-                    String modelo = atributos[4];
-                    int cilindrada = Integer.parseInt(atributos[5]);
-                    boolean disponible = Boolean.parseBoolean(atributos[6]);
-                    boolean baja = Boolean.parseBoolean(atributos[7]);
+                    String matricula = atributos[1];
+                    String marca = atributos[2];
+                    String modelo = atributos[3];
+                    int cilindrada = Integer.parseInt(atributos[4]);
+                    boolean disponible = Boolean.parseBoolean(atributos[5]);
+                    boolean baja = Boolean.parseBoolean(atributos[6]);
 
-                    int pma = Integer.parseInt(atributos[8]);
-                    int volumen = Integer.parseInt(atributos[9]);
+                    int pma = Integer.parseInt(atributos[7]);
+                    int volumen = Integer.parseInt(atributos[8]);
 
-                    boolean refrigerado = Boolean.parseBoolean(atributos[10]);
-                    Enumerados.Tamano tamanio = Enumerados.Tamano.valueOf(atributos[11]);
+                    boolean refrigerado = Boolean.parseBoolean(atributos[9]);
+                    Enumerados.Tamano tamanio = Enumerados.Tamano.valueOf(atributos[10]);
 
                     Furgoneta fur = new Furgoneta(refrigerado, tamanio, pma, volumen, matricula, marca, modelo, cilindrada);
                     anadirVehiculos(fur);
@@ -165,7 +160,6 @@ public class AJBM_AlquilerVehiculo {
         }
 
         try {
-            sc = new Scanner(new File(rutatxtA));
             sc = new Scanner(new File(rutadatA));
 
             while (sc.hasNextLine()) {
@@ -180,11 +174,11 @@ public class AJBM_AlquilerVehiculo {
                     String matricula = atributos[2];
                     Vehiculo v = getVehiculos(matricula);
 
-                    String fechaI = atributos[3];
-                    String fechaC = atributos[4];
-                    LocalDateTime fechaInicio = LocalDateTime.parse(fechaI);
-                    LocalDateTime fechaFinal = LocalDateTime.parse(fechaC);
-
+                    LocalDateTime fechaInicio = LocalDateTime.parse(atributos[3]);
+                    LocalDateTime fechaFinal = null;
+                    if (!atributos[4].equals("Abierto")) {
+                        fechaFinal = LocalDateTime.parse(atributos[4]);
+                    }
                     Alquiler a = new Alquiler(c, v, fechaInicio, fechaFinal);
                     nuevoAlquiler(a);
                 }
@@ -316,25 +310,25 @@ public class AJBM_AlquilerVehiculo {
 
         for (Cliente cliente : clientes) {
             if (cliente == null) {
-                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), false);
-            } else {
                 ES.escribirArchivo(rutatxtC, cliente.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), false);
             }
         }
 
         for (Vehiculo vehiculo : vehiculos) {
             if (vehiculo == null) {
-                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), false);
-            } else {
                 ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), false);
             }
         }
 
         for (Alquiler alquilere : alquileres) {
             if (alquilere == null) {
-                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), false);
-            } else {
                 ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), false);
             }
         }
     }
@@ -343,25 +337,25 @@ public class AJBM_AlquilerVehiculo {
 
         for (Cliente cliente : clientes) {
             if (cliente == null) {
-                ES.escribirArchivo(rutadatC, cliente.toEscribir(), false);
-            } else {
                 ES.escribirArchivo(rutadatC, cliente.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutadatC, cliente.toEscribir(), false);
             }
         }
 
         for (Vehiculo vehiculo : vehiculos) {
             if (vehiculo == null) {
-                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), false);
-            } else {
                 ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), false);
             }
         }
 
         for (Alquiler alquilere : alquileres) {
             if (alquilere == null) {
-                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), false);
-            } else {
                 ES.escribirArchivo(rutadatA, alquilere.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), false);
             }
         }
 
@@ -475,9 +469,10 @@ public class AJBM_AlquilerVehiculo {
         for (Cliente cliente : clientes) {
             if (cliente.getDni().equals(dni)) {
                 cliente.setBaja(true);
-                ES.escribir("Cliente borrado existosamente");
+                ES.escribir("Cliente dado de baja existosamente");
+                break;
             } else {
-                System.out.println("Error. Cliente no ha sido borrado, no existe ningun cliente con ese DNI");
+                System.out.println("Error. Cliente no ha sido dado de baja, no existe ningun cliente con ese DNI");
             }
         }
     }
@@ -690,20 +685,24 @@ public class AJBM_AlquilerVehiculo {
         Cliente c = getCliente(dni);
         if (c == null) {
             System.out.println("No existe ese cliente con ese dni");
+            return null;
         }
 
         Vehiculo v = getVehiculos(matricula);
         if (v == null) {
             System.out.println("No existe ese vehiculo con esa matricula");
+            return null;
+
         }
 
         if (!v.isDisponible()) {
             System.out.println("Este vehiculo no esta disponible");
         }
-        LocalDateTime fechaInicio = null;
+        LocalDateTime fechaInicio = LocalDateTime.now();
         LocalDateTime fechaCierre = null;
 
-        return new Alquiler(c, v, fechaInicio, fechaCierre);
+        Alquiler a = new Alquiler(c, v, fechaInicio, fechaCierre);
+        return a;
 
     }
 
@@ -713,11 +712,10 @@ public class AJBM_AlquilerVehiculo {
      * @param a
      */
     private static void nuevoAlquiler(Alquiler a) {
-        for (Alquiler alquilere : alquileres) {
-            alquileres.add(a);
-            numAlquiler++;
-            ES.escribir("Alquiler abierto correctamente.");
-        }
+        alquileres.add(a);
+        numAlquiler++;
+        ES.escribir("Alquiler abierto correctamente.");
+
     }
 
     /**
@@ -726,13 +724,13 @@ public class AJBM_AlquilerVehiculo {
      */
     private static void eliminarAlquiler() {
         String matricula = ES.leerCadena("Cual es la matricula del coche?");
-        String dni = ES.leerCadena("Cual es el dni del coche?");
+        String dni = ES.leerCadena("Cual es el dni del ?");
 
-        while (Utilidades.comprobarDni(dni)) {
+        while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
             dni = ES.leerCadena("Cual es el DNI del cliente?");
         }
-        while (Utilidades.comprobarMatricula(matricula)) {
+        while (!Utilidades.comprobarMatricula(matricula)) {
             ES.escribir("Este matricula no es valido, vuelva a introducirlo");
             matricula = ES.leerCadena("Cual es el matricula del cliente?");
         }

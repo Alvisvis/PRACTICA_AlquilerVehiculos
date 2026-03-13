@@ -39,6 +39,6 @@ public class Furgoneta extends Mercancias {
     }
 
     public String toEscribir() {
-        return "Furgoneta#" + super.toEscribir() + "#" + refrigerado + "#" + tamanio;
+        return "Furgoneta#" + super.toEscribir()+ refrigerado + "#" + tamanio;
     }
 }

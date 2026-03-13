@@ -193,7 +193,7 @@ public class ES {
 
             System.out.println("Guardando información............");
 
-            fichero.write(datos);
+            fichero.write(datos + "\n");
             fichero.close();
 
             System.out.println("Información guardada");

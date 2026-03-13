@@ -25,8 +25,8 @@ public class Alquiler {
 
     //Constructores
     public Alquiler(Cliente c , Vehiculo v, LocalDateTime fechaInicio, LocalDateTime fechaCierre) {
-        fechaInicio = LocalDateTime.now();
-        fechaCierre = null;
+        this.fechaInicio = LocalDateTime.now();
+        this.fechaCierre = null;
         this.turismo = v;
         this.cliente = c;
         this.dias = 0;
