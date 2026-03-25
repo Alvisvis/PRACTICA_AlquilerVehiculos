@@ -5,10 +5,14 @@
 package practica_ajbm;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import practica_ajbm.Vehiculo;
+import utiles.ConexionBBDD;
 import utiles.ES;
 import utiles.Utilidades;
 
@@ -39,7 +43,9 @@ public class AJBM_AlquilerVehiculo {
     private static int numCliente = 0;
     private static int numAlquiler = 0;
 
-    //CARGAR DATOS
+    private static ConexionBBDD conexionBD;
+
+    //LEER DATOS
     private static void leerDatos() {
         File fichero;
         Scanner sc = null;
@@ -194,6 +200,7 @@ public class AJBM_AlquilerVehiculo {
         Scanner sc = new Scanner(System.in);
         String dni;
         String matricula;
+        conexionBD = conexionBD.getInstance("172.26.101.103", "bd_Cliente", "abrizida", "Abri-2005#");
         int op;
         do {
             menu();
@@ -260,7 +267,6 @@ public class AJBM_AlquilerVehiculo {
                     } else if (elegir == 2) {
                         guardarDatosDAT();
                     }
-
                     break;
                 case 13:
                     int tipo = ES.leerEntero("¿Cual archivo quieres leer?"
@@ -301,67 +307,28 @@ public class AJBM_AlquilerVehiculo {
                         System.out.println("Esa opcion no es correcta");
                     }
                     break;
+                case 14:
+                    int opcion;
+                    do {
+                        menuBD();
+                        opcion = sc.nextInt();
+                        switch (opcion) {
+                            case 1:
+                                insertarClienteBD();
+                                break;
+                            case 2:
+                                eliminarClienteBD();
+                                break;
+                            case 3:
+                                listarClienteBD();
+                                break;
+                        }
+                    } while (opcion != 0);
             }
         } while (op != 0);
     }
+//MENU
 
-    //ARCHIVOS
-    public static void guardarDatosTXT() {
-
-        for (Cliente cliente : clientes) {
-            if (cliente == null) {
-                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), false);
-            }
-        }
-
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo == null) {
-                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), false);
-            }
-        }
-
-        for (Alquiler alquilere : alquileres) {
-            if (alquilere == null) {
-                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), false);
-            }
-        }
-    }
-
-    public static void guardarDatosDAT() {
-
-        for (Cliente cliente : clientes) {
-            if (cliente == null) {
-                ES.escribirArchivo(rutadatC, cliente.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutadatC, cliente.toEscribir(), false);
-            }
-        }
-
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo == null) {
-                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), false);
-            }
-        }
-
-        for (Alquiler alquilere : alquileres) {
-            if (alquilere == null) {
-                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), false);
-            }
-        }
-
-    }
-
-    //MENU
     /**
      * Metodo menu que se mostrara al principio para indicar que numero hay que
      * introducir para hacer una funcion
@@ -385,7 +352,22 @@ public class AJBM_AlquilerVehiculo {
 
         ES.escribirLn("12. Guardar datos");
         ES.escribirLn("13. Leer archivos guardados");
+
+        ES.escribirLn("14.Menu Base de Datos");
+
         ES.escribirLn("0. Cerrar");
+    }
+
+    public static void menuBD() {
+        System.out.println("\n\t     BBDD Usuario");
+        System.out.println("\t-------------------------");
+        System.out.println("\t1. Insertar usuario (BBDD)");
+        System.out.println("\t2. Eliminar usuario (BBDD)");
+
+        System.out.println("\t3. Listar usuarios");
+
+        System.out.println("\t0. Salir");
+        System.out.print("\nSelecciona opcion: ");
     }
 
     //METODOS CLIENTES
@@ -478,7 +460,8 @@ public class AJBM_AlquilerVehiculo {
     }
 
     /**
-     * Metodo para listar los clientes pertenecientes de la array clientes
+     * Metodo para listarClienteBD los clientes pertenecientes de la array
+     * clientes
      */
     private static void ListarCliente() {
         ES.escribirLn("------------------------------------------");
@@ -653,7 +636,8 @@ public class AJBM_AlquilerVehiculo {
     }
 
     /**
-     * Metodo para listar los vehiculos que estan en la array de vehiculos
+     * Metodo para listarClienteBD los vehiculos que estan en la array de
+     * vehiculos
      */
     private static void ListarVehiculo() {
         ES.escribirLn("------------------------------------------");
@@ -771,13 +755,173 @@ public class AJBM_AlquilerVehiculo {
     }
 
     /**
-     * Metodo para listar los alquiler que existen en la array alquiler
+     * Metodo para listarClienteBD los alquiler que existen en la array alquiler
      */
     private static void ListarAlquiler() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\t Lista de Alquires");
         for (Alquiler alquilere : alquileres) {
             System.out.println(alquilere.toString() + " ");
+        }
+    }
+
+    //ARCHIVOS
+    public static void guardarDatosTXT() {
+
+        for (Cliente cliente : clientes) {
+            if (cliente == null) {
+                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), false);
+            }
+        }
+
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo == null) {
+                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), false);
+            }
+        }
+
+        for (Alquiler alquilere : alquileres) {
+            if (alquilere == null) {
+                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), false);
+            }
+        }
+    }
+
+    public static void guardarDatosDAT() {
+
+        for (Cliente cliente : clientes) {
+            if (cliente == null) {
+                ES.escribirArchivo(rutadatC, cliente.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutadatC, cliente.toEscribir(), false);
+            }
+        }
+
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo == null) {
+                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), false);
+            }
+        }
+
+        for (Alquiler alquilere : alquileres) {
+            if (alquilere == null) {
+                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), true);
+            } else {
+                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), false);
+            }
+        }
+    }
+
+    //BASE DE DATOS
+    /**
+     * Insertar usuario a la BBDD
+     *
+     */
+    public static void insertarClienteBD() {
+        ArrayList tuplaUsuario = new ArrayList<String>();
+        String dni;
+        String nombre;
+        String direccion;
+        String localidad;
+        String codigoPostal;
+        boolean baja;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(" INSERTAR CLIENTE A LA BBDD");
+        dni = ES.leerCadena("\nIntroduzca DNI: ");
+        while (!Utilidades.comprobarDni(dni)) {
+            ES.escribir("Este DNI o NIE no es valido, vuelva a introducirlo");
+            dni = ES.leerCadena("\nIntroduzca DNI: ");
+        }
+        tuplaUsuario.add(dni);
+
+        nombre = ES.leerCadena("Introduce el nombre del Cliente");
+        tuplaUsuario.add(nombre);
+
+        direccion = ES.leerCadena("Introduce la dirección del cliente");
+        tuplaUsuario.add(direccion);
+
+        localidad = ES.leerCadena("Introduce la localidad del cliente");
+        tuplaUsuario.add(localidad);
+
+        codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
+        while (!Utilidades.comprobarCodigoPostal(codigoPostal)) {
+            ES.escribir("Este codigo postal no es valido, vuelva a introducirlo");
+            codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
+        }
+        tuplaUsuario.add(codigoPostal);
+        
+        baja = false;
+        tuplaUsuario.add(String.valueOf(baja));
+
+        conexionBD.insertarDatos("Cliente", tuplaUsuario);
+
+    }
+    //-----------------------------------------------------------------
+
+    /**
+     * Eliminar Usuario a la BBDD
+     *
+     */
+    public static void eliminarClienteBD() {
+        String dni;
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(" INSERTAR Cliente A LA BBDD");
+        System.out.print("\nIntroduzca DNI: ");
+        dni = sc.nextLine();
+
+        conexionBD.eliminarDatos("Cliente", dni);
+    }
+
+    //-------------------------------------------------------------------------
+    private static void listarClienteBD() {
+        String sql;
+
+        try {
+            Statement sentencia = (Statement) conexionBD.getConexion().createStatement();
+            ResultSet resultado = sentencia.executeQuery("SELECT * FROM Cliente ;");
+
+            mostrarDatosTabla(resultado);
+
+            resultado.close();
+            sentencia.close();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void mostrarDatosTabla(ResultSet _resultado) throws SQLException {
+        java.sql.ResultSetMetaData metaDatos = _resultado.getMetaData();
+        int nColumnas = metaDatos.getColumnCount();
+        String[] formato
+                = {
+                    "%10s", "%-15s", "%-20s", "%-10s", "%-10s", "%-10s"
+                };
+
+        for (int i = 1; i >= nColumnas; i++) {
+            // Obtenemos el nombre de la columna y su valor
+            System.out.printf(formato[i - 1] + ((i < nColumnas) ? " | " : " "), metaDatos.getColumnName(i));
+        }
+        System.out.println("");
+
+        System.out.println("-----------------------------------------------------------");
+
+        while (_resultado.next()) {
+            System.out.printf("%10s | %-15s | %-20s | %-15s | %-15s | %-15s\n ", _resultado.getString(1),
+                    _resultado.getString(2), _resultado.getString(3), _resultado.getString(4), _resultado.getString(5), _resultado.getBoolean(6));
+
         }
     }
 }

@@ -10,13 +10,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author manuela
  */
-public class ConexionBBDD
-{
+public class ConexionBBDD {
 
     private String servidor;
     private String baseDatos;
@@ -29,11 +27,9 @@ public class ConexionBBDD
     private static ConexionBBDD instancia = null;
 
     //-------------------------------------------------------------------------
-    private ConexionBBDD(String _servidor, String _bd, String _user, String _pswd)
-    {
+    private ConexionBBDD(String _servidor, String _bd, String _user, String _pswd) {
         // The following code emulates slow initialization.
-        if (conexion == null)
-        {
+        if (conexion == null) {
             servidor = _servidor;
             baseDatos = _bd;
             usuario = _user;
@@ -50,27 +46,19 @@ public class ConexionBBDD
 
     //-------------------------------------------------------------------------
     public static ConexionBBDD getInstance(String _servidor, String _bd,
-            String _user, String _pswd)
-    {
-        if (instancia == null)
-        {
+            String _user, String _pswd) {
+        if (instancia == null) {
             instancia = new ConexionBBDD(_servidor, _bd, _user, _pswd);
         }
         return instancia;
     }
 
-    
     //-------------------------------------------------------------------------
-    public void cerrar()
-    {
-        if (conexion != null)
-        {
-            try
-            {
+    public void cerrar() {
+        if (conexion != null) {
+            try {
                 conexion.close();
-            } 
-            catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("Error: Fallo al cerrar la base de datos.");
                 e.printStackTrace();
             }
@@ -79,20 +67,17 @@ public class ConexionBBDD
     }
 
     //---------------------------------------------------------------------
-    public Connection getConexion()
-    {
+    public Connection getConexion() {
 
         return conexion;
     }
 
     //---------------------------------------------------------------------
     private Connection getConector(String _servidor, String _bd,
-            String _user, String _pswd)
-    {
+            String _user, String _pswd) {
         conexion = null;
 
-        try
-        {
+        try {
             // Cargar el driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -105,72 +90,63 @@ public class ConexionBBDD
             conexion = DriverManager.getConnection(URL, _user, _pswd);
             System.out.println("Conexión exitosa a " + _bd);
 
-        } catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.err.println("Error: No se encontró el Driver de MySQL.");
             e.printStackTrace();
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("Error: Fallo al conectar con la base de datos.");
             e.printStackTrace();
         }
         return conexion;
     }
 
-    public boolean insertarDatos(String _tabla, ArrayList<String> _registro)
-    {
+    public boolean insertarDatos(String _tabla, ArrayList<String> _registro) {
         boolean correcto = false;
 
-        String sql = "INSERT INTO " + _tabla + " (dni, nombre, apellidos, edad) "
-                + "VALUES ( ?,?,?,?)";
+        String sql = "INSERT INTO " + _tabla + " (dni, nombre, direccion, localidad, codigoPostal, baja) "
+                + "VALUES ( ?,?,?,?,?,?)";
 
-        try (PreparedStatement pstmt = conexion.prepareStatement(sql))
-        {
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
             // Java pondrá las comillas automáticamente donde haga falta
             pstmt.setString(1, _registro.get(0));
             pstmt.setString(2, _registro.get(1));
             pstmt.setString(3, _registro.get(2));
-            pstmt.setInt(4, Integer.parseInt(_registro.get(3)));
+            pstmt.setString(4, _registro.get(3));
+            pstmt.setString(5, _registro.get(4));
+            pstmt.setBoolean(6, Boolean.parseBoolean(_registro.get(5)));
 
             // Ejecutamos la inserción
             int filasAfectadas = pstmt.executeUpdate();
 
-            if (filasAfectadas > 0)
-            {
-                System.out.println("¡Usuario insertado con éxito!");
+            if (filasAfectadas > 0) {
+                System.out.println("¡Cliente insertado con éxito!");
                 correcto = true;
             }
 
             //conexion.commit();  // efectuar los cambios - autocommit esta a true
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("Error al insertar: " + e.getMessage());
         }
         return correcto;
     }
 
-    public boolean eliminarDatos(String _tabla, String _clave)
-    {
+    public boolean eliminarDatos(String _tabla, String _clave) {
         boolean correcto = false;
 
         String sql = "DELETE FROM " + _tabla + " WHERE dni = \'" + _clave + "\'";
 
-        try (PreparedStatement pstmt = conexion.prepareStatement(sql))
-        {
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
             // executeUpdate devuelve el número de filas afectadas
             int filasBorradas = pstmt.executeUpdate();
 
-            if (filasBorradas > 0)
-            {
-                System.out.println("El usuario existía y ha sido eliminado.");
-            } else
-            {
-                System.out.println("No se encontró ningún usuario con ese DNI.");
+            if (filasBorradas > 0) {
+                System.out.println("El Cliente existía y ha sido eliminado.");
+            } else {
+                System.out.println("No se encontró ningún Cliente con ese DNI.");
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return correcto;
