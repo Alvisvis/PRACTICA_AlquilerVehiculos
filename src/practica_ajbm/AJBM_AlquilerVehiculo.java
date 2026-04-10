@@ -306,24 +306,24 @@ public class AJBM_AlquilerVehiculo {
      */
     private static void menu() {
         ES.escribirLn("------------------------------------------");
-        System.out.println("Alquileres de coches");
+        System.out.println("\tAlquileres de coches");
         ES.escribirLn("1. Añadir cliente");
         ES.escribirLn("2. Dar de baja cliente");
         ES.escribirLn("3. Listar clientes");
         ES.escribirLn("4. Listar clientes dados de baja");
-
+        ES.escribirLn("------------------------------------------");
         ES.escribirLn("5. Añadir vehiculo");
         ES.escribirLn("6. Dar de baja vehiculo");
         ES.escribirLn("7. Listar vehiculos");
         ES.escribirLn("8. Listar vehiculos dados de baja");
-
+        ES.escribirLn("------------------------------------------");
         ES.escribirLn("9. Nuevo alquiler");
         ES.escribirLn("10. Cerrar un alquiler");
         ES.escribirLn("11. Listar alquileres");
-
+        ES.escribirLn("------------------------------------------");
         ES.escribirLn("12. Guardar datos");
         ES.escribirLn("13. Leer archivos guardados");
-
+        ES.escribirLn("------------------------------------------");
         ES.escribirLn("14.Menu Base de Datos");
 
         ES.escribirLn("0. Cerrar");
