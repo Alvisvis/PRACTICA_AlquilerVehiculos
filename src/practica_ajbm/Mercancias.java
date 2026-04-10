@@ -8,7 +8,7 @@ package practica_ajbm;
  *
  * @author dam-29
  */
-public class Mercancias extends Vehiculo {
+public abstract class Mercancias extends Vehiculo {
 
     private int pma;
     private int volumen;

@@ -80,21 +80,6 @@ public class AJBM_AlquilerVehiculo {
                 String[] atributos = linea.split("#");
 
                 //Leer datos de los vehiculos
-                if (atributos[0].equals("Turismo")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int nPuertas = Integer.parseInt(atributos[7]);
-                    Enumerados.TipoCombustible tipoCombustible = Enumerados.TipoCombustible.valueOf(atributos[8]);
-
-                    Turismo t = new Turismo(nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
-                    anadirVehiculos(t);
-                }
-
                 if (atributos[0].equals("Deportivo")) {
                     String matricula = atributos[1];
                     String marca = atributos[2];
@@ -128,20 +113,6 @@ public class AJBM_AlquilerVehiculo {
 
                     Familiar fam = new Familiar(nPlazas, sillaBebe, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
                     anadirVehiculos(fam);
-                }
-                if (atributos[0].equals("Mercancias")) {
-                    String matricula = atributos[1];
-                    String marca = atributos[2];
-                    String modelo = atributos[3];
-                    int cilindrada = Integer.parseInt(atributos[4]);
-                    boolean disponible = Boolean.parseBoolean(atributos[5]);
-                    boolean baja = Boolean.parseBoolean(atributos[6]);
-
-                    int pma = Integer.parseInt(atributos[7]);
-                    int volumen = Integer.parseInt(atributos[8]);
-
-                    Mercancias m = new Mercancias(pma, volumen, matricula, marca, modelo, cilindrada);
-                    anadirVehiculos(m);
                 }
                 if (atributos[0].equals("Furgoneta")) {
                     String matricula = atributos[1];
@@ -858,7 +829,7 @@ public class AJBM_AlquilerVehiculo {
             codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
         }
         tuplaUsuario.add(codigoPostal);
-        
+
         baja = false;
         tuplaUsuario.add(String.valueOf(baja));
 

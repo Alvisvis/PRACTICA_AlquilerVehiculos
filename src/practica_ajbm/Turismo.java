@@ -8,7 +8,7 @@ package practica_ajbm;
  *
  * @author dam-29
  */
-public class Turismo extends Vehiculo {
+public abstract class Turismo extends Vehiculo {
 
     protected int nPuertas;
     protected Enumerados.TipoCombustible tipoCombustible;
