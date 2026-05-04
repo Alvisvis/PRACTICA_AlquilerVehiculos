@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public class Enumerados {
+public class Enumerados implements Serializable{
 
     public enum TipoCombustible {
         GASOLINA,

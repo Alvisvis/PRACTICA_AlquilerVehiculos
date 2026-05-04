@@ -4,6 +4,7 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -12,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  *
  * @author dam-29
  */
-public class Alquiler {
+public class Alquiler implements Serializable{
 
     //Atributo
     private final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");

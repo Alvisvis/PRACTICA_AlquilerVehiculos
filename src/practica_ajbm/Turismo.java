@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public abstract class Turismo extends Vehiculo {
+public abstract class Turismo extends Vehiculo implements Serializable{
 
     protected int nPuertas;
     protected Enumerados.TipoCombustible tipoCombustible;

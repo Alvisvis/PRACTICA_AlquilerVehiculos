@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public class Familiar extends Turismo {
+public class Familiar extends Turismo implements Serializable{
 
     private int nPlazas;
     private boolean sillaBebe;

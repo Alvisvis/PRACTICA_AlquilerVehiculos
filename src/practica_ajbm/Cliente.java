@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public class Cliente {
+public class Cliente implements Serializable{
 
     //Atributos
     private String dni;

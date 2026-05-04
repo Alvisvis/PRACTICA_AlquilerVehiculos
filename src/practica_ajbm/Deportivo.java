@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public class Deportivo extends Turismo {
+public class Deportivo extends Turismo implements Serializable{
 
     private boolean descapotable;
     private Enumerados.CajaCambio cambio;

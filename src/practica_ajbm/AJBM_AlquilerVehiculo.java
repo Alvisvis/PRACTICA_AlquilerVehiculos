@@ -182,13 +182,23 @@ public class AJBM_AlquilerVehiculo {
                     anadirCliente(c);
                     break;
                 case 2:
+                    Vehiculo v = insertarVehiculo();
+                    anadirVehiculos(v);
+                    break;
+                case 3:
                     dni = ES.leerCadena("Introduce el DNI del cliente: ");
                     BorrarCliente(dni);
                     break;
-                case 3:
-                    ListarCliente();
-                    break;
                 case 4:
+                    menuEliminacion();
+                    matricula = ES.leerCadena("Introduce la matricula del Vehiculo: ");
+                    borrarVehiculos(matricula);
+
+                    break;
+                case 5:
+                    menuListado();
+                    break;
+                case 6:
                     for (Cliente cliente : clientes) {
                         if (cliente.isBaja()) {
                             System.out.println(cliente.toString() + " ");
@@ -197,16 +207,8 @@ public class AJBM_AlquilerVehiculo {
                         }
                     }
                     break;
-                case 5:
-                    Vehiculo v = insertarVehiculo();
-                    anadirVehiculos(v);
-                    break;
-                case 6:
-                    matricula = ES.leerCadena("Introduce la matricula del Vehiculo: ");
-                    borrarVehiculos(matricula);
-                    break;
                 case 7:
-                    ListarVehiculo();
+                    menuListado();
                     break;
                 case 8:
                     for (Vehiculo vehiculo : vehiculos) {
@@ -216,16 +218,17 @@ public class AJBM_AlquilerVehiculo {
                             System.out.println("No hay vehiculo de baja");
                         }
                     }
-
                     break;
                 case 9:
                     Alquiler a = insertarAlquler();
                     nuevoAlquiler(a);
                     break;
                 case 10:
+                    menuEliminacion();
                     eliminarAlquiler();
                     break;
                 case 11:
+                    menuListado();
                     ListarAlquiler();
                     break;
                 case 12:
@@ -308,26 +311,44 @@ public class AJBM_AlquilerVehiculo {
     private static void menu() {
         ES.escribirLn("------------------------------------------");
         System.out.println("\tAlquileres de coches");
+
+        ES.escribirLn("Añadir");
         ES.escribirLn("1. Añadir cliente");
-        ES.escribirLn("2. Dar de baja cliente");
-        ES.escribirLn("3. Listar clientes");
-        ES.escribirLn("4. Listar clientes dados de baja");
+        ES.escribirLn("2. Añadir vehiculo");
         ES.escribirLn("------------------------------------------");
-        ES.escribirLn("5. Añadir vehiculo");
-        ES.escribirLn("6. Dar de baja vehiculo");
+
+        ES.escribirLn("Dar de baja");
+        ES.escribirLn("3. Dar de baja cliente");
+        ES.escribirLn("4. Dar de baja vehiculo");
+        ES.escribirLn("------------------------------------------");
+
+        ES.escribirLn("Listar");
+        ES.escribirLn("5. Listar clientes");
+        ES.escribirLn("6. Listar clientes dados de baja");
         ES.escribirLn("7. Listar vehiculos");
         ES.escribirLn("8. Listar vehiculos dados de baja");
         ES.escribirLn("------------------------------------------");
+
+        ES.escribirLn("Alquilar");
         ES.escribirLn("9. Nuevo alquiler");
         ES.escribirLn("10. Cerrar un alquiler");
         ES.escribirLn("11. Listar alquileres");
         ES.escribirLn("------------------------------------------");
+
+        ES.escribirLn("Archivos");
         ES.escribirLn("12. Guardar datos");
         ES.escribirLn("13. Leer archivos guardados");
-        ES.escribirLn("------------------------------------------");
 //        ES.escribirLn("14. Base de datos");
 
         ES.escribirLn("0. Cerrar");
+    }
+
+    public static void menuListado() {
+
+    }
+
+    public static void menuEliminacion() {
+
     }
 
 //    public static void menuBD() {

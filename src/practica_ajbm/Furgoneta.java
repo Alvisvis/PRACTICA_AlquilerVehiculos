@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public class Furgoneta extends Mercancias {
+public class Furgoneta extends Mercancias implements Serializable{
 
     private boolean refrigerado;
     private Enumerados.Tamano tamanio;

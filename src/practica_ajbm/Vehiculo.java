@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public abstract class Vehiculo {
+public abstract class Vehiculo implements Serializable{
 
     //ATRIBUTOS
     private String matricula;

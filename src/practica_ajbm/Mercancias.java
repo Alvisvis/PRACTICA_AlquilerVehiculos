@@ -4,11 +4,13 @@
  */
 package practica_ajbm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dam-29
  */
-public abstract class Mercancias extends Vehiculo {
+public abstract class Mercancias extends Vehiculo implements Serializable{
 
     private int pma;
     private int volumen;
