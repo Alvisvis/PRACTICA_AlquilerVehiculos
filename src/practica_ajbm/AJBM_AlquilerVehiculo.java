@@ -193,45 +193,22 @@ public class AJBM_AlquilerVehiculo {
                     menuEliminacion();
                     matricula = ES.leerCadena("Introduce la matricula del Vehiculo: ");
                     borrarVehiculos(matricula);
-
                     break;
                 case 5:
                     menuListado();
                     break;
                 case 6:
-                    for (Cliente cliente : clientes) {
-                        if (cliente.isBaja()) {
-                            System.out.println(cliente.toString() + " ");
-                        } else {
-                            System.out.println("No hay clientes de baja");
-                        }
-                    }
+                    menuEliminacion();
                     break;
                 case 7:
-                    menuListado();
-                    break;
-                case 8:
-                    for (Vehiculo vehiculo : vehiculos) {
-                        if (vehiculo.isBaja()) {
-                            System.out.println(vehiculo.toString() + " ");
-                        } else {
-                            System.out.println("No hay vehiculo de baja");
-                        }
-                    }
-                    break;
-                case 9:
                     Alquiler a = insertarAlquler();
                     nuevoAlquiler(a);
                     break;
-                case 10:
+                case 8:
                     menuEliminacion();
                     eliminarAlquiler();
                     break;
-                case 11:
-                    menuListado();
-                    ListarAlquiler();
-                    break;
-                case 12:
+                case 9:
                     int elegir = ES.leerEntero("Elige como quieres guardar los datos:"
                             + "\n1- Guardar datos .txt"
                             + "\n2- Guardar datos .dat"
@@ -242,7 +219,7 @@ public class AJBM_AlquilerVehiculo {
                         guardarDatosDAT();
                     }
                     break;
-                case 13:
+                case 10:
                     int tipo = ES.leerEntero("¿Cual archivo quieres leer?"
                             + "\n 1. Archivo Clientes"
                             + "\n 2. Archivo Vehiculos"
@@ -284,7 +261,7 @@ public class AJBM_AlquilerVehiculo {
                         System.out.println("Esa opcion no es correcta");
                     }
                     break;
-//                case 14:
+//                case 11:
 //                    int opcion;
 //                    do {
 //                        menuBD();
@@ -322,33 +299,87 @@ public class AJBM_AlquilerVehiculo {
         ES.escribirLn("4. Dar de baja vehiculo");
         ES.escribirLn("------------------------------------------");
 
-        ES.escribirLn("Listar");
-        ES.escribirLn("5. Listar clientes");
-        ES.escribirLn("6. Listar clientes dados de baja");
-        ES.escribirLn("7. Listar vehiculos");
-        ES.escribirLn("8. Listar vehiculos dados de baja");
+        ES.escribirLn("5. Listados");
+        ES.escribirLn("------------------------------------------");
+
+        ES.escribirLn("6. Eliminar");
         ES.escribirLn("------------------------------------------");
 
         ES.escribirLn("Alquilar");
-        ES.escribirLn("9. Nuevo alquiler");
-        ES.escribirLn("10. Cerrar un alquiler");
-        ES.escribirLn("11. Listar alquileres");
+        ES.escribirLn("7. Nuevo alquiler");
+        ES.escribirLn("8. Cerrar un alquiler");
         ES.escribirLn("------------------------------------------");
 
         ES.escribirLn("Archivos");
-        ES.escribirLn("12. Guardar datos");
-        ES.escribirLn("13. Leer archivos guardados");
-//        ES.escribirLn("14. Base de datos");
+        ES.escribirLn("9. Guardar datos");
+        ES.escribirLn("10. Leer archivos guardados");
+//        ES.escribirLn("11. Base de datos");
 
         ES.escribirLn("0. Cerrar");
     }
 
     public static void menuListado() {
 
+        int op = 0;
+        do {
+            ES.escribirLn("""
+                            Que listado quieres ver?
+                      1- Clientes por nombre
+                      2- Clientes por localidad
+                      3- Vehiculos por marca
+                      4- alquileres por fecha de inicio del mismo
+                      5- alquileres por apellidos de cliente
+                      0- Salir""");
+            op = ES.leerEntero("");
+            switch (op) {
+                case 1:
+                    clientes.sort((o1, o2) -> o1.getNombre().compareTo(o2.getNombre()));
+                    ListarCliente();
+                    break;
+                case 2:
+                    clientes.sort((o1, o2) -> o1.getLocalidad().compareTo(o2.getLocalidad()));
+                    ListarCliente();
+                    break;
+                case 3:
+                    vehiculos.sort((o1, o2) -> o1.getMarca().compareTo(o2.getMarca()));
+                    ListarVehiculo();
+                    break;
+                case 4:
+                    alquileres.sort((o1, o2) -> {
+                        return o1.getFecha().compareTo(o2.getFecha());
+                    });
+                    ListarAlquiler();
+                    break;
+                case 5:
+                    alquileres.sort((o1, o2) -> o1.getCliente().getNombre().compareTo(o2.getCliente().getNombre()));
+                    ListarAlquiler();
+                    break;
+            }
+        } while (op != 0);
     }
 
     public static void menuEliminacion() {
 
+        int op = 0;
+        do {
+            ES.escribirLn("""
+                            Que quieres eliminar?
+                      1- Eliminar todos los vehiculo de una marca
+                      2- Eliminar los alquileres que tengan una marca dada
+                      3- Eliminar los alquileres que tengan una fecha menor que la indicada""");
+            op = ES.leerEntero("");
+            switch (op) {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
+        } while (op != 0);
     }
 
 //    public static void menuBD() {
@@ -401,7 +432,8 @@ public class AJBM_AlquilerVehiculo {
             ES.escribirLn("Este codigo postal no es valido, vuelva a introducirlo");
             codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente: ");
         }
-        return c = new Cliente(dni, nombre, direccion, localidad, codigoPostal);
+        c = new Cliente(dni, nombre, direccion, localidad, codigoPostal);
+        return c;
     }
 
     /**
@@ -759,55 +791,55 @@ public class AJBM_AlquilerVehiculo {
 
     //ARCHIVOS
     public static void guardarDatosTXT() {
+        boolean sobreescribir = false;
 
         for (Cliente cliente : clientes) {
-            if (cliente == null) {
-                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), false);
+            if (cliente != null) {
+                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), sobreescribir);
+                sobreescribir = true;
+
             }
         }
 
         for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo == null) {
-                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), false);
+            if (vehiculo != null) {
+                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), sobreescribir);
+                sobreescribir = true;
+
             }
         }
 
         for (Alquiler alquilere : alquileres) {
-            if (alquilere == null) {
-                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), false);
+            if (alquilere != null) {
+                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), sobreescribir);
+                sobreescribir = true;
+
             }
         }
     }
 
     public static void guardarDatosDAT() {
 
+        boolean sobreescribir = false;
+
         for (Cliente cliente : clientes) {
-            if (cliente == null) {
-                ES.escribirArchivo(rutadatC, cliente.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutadatC, cliente.toEscribir(), false);
+            if (cliente != null) {
+                ES.escribirArchivo(rutadatC, cliente.toEscribir(), sobreescribir);
+                sobreescribir = true;
             }
         }
 
         for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo == null) {
-                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), false);
+            if (vehiculo != null) {
+                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), sobreescribir);
+                sobreescribir = true;
             }
         }
 
         for (Alquiler alquilere : alquileres) {
-            if (alquilere == null) {
-                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), true);
-            } else {
-                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), false);
+            if (alquilere != null) {
+                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), sobreescribir);
+                sobreescribir = true;
             }
         }
     }
