@@ -92,7 +92,7 @@ public class ES {
      */
     public static String leerCadena(String cadena) {
         Scanner teclado = new Scanner(System.in);
-        System.out.println(cadena);
+        System.out.print(cadena);
         return teclado.nextLine();
     }
 

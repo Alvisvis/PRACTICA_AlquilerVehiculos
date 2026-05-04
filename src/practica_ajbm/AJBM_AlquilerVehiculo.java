@@ -43,8 +43,7 @@ public class AJBM_AlquilerVehiculo {
     private static int numCliente = 0;
     private static int numAlquiler = 0;
 
-    private static ConexionBBDD conexionBD;
-
+//    private static ConexionBBDD conexionBD;
     //LEER DATOS
     private static void leerDatos() {
         File fichero;
@@ -171,7 +170,7 @@ public class AJBM_AlquilerVehiculo {
         Scanner sc = new Scanner(System.in);
         String dni;
         String matricula;
-        conexionBD = conexionBD.getInstance("172.26.101.103", "bd_Cliente", "abrizida", "Abri-2005#");
+//        conexionBD = conexionBD.getInstance("172.26.101.103", "bd_Cliente", "abrizida", "Abri-2005#");
         int op;
         do {
             menu();
@@ -183,7 +182,7 @@ public class AJBM_AlquilerVehiculo {
                     anadirCliente(c);
                     break;
                 case 2:
-                    dni = ES.leerCadena("Introduce el DNI del cliente");
+                    dni = ES.leerCadena("Introduce el DNI del cliente: ");
                     BorrarCliente(dni);
                     break;
                 case 3:
@@ -203,7 +202,7 @@ public class AJBM_AlquilerVehiculo {
                     anadirVehiculos(v);
                     break;
                 case 6:
-                    matricula = ES.leerCadena("Introduce la matricula del Vehiculo");
+                    matricula = ES.leerCadena("Introduce la matricula del Vehiculo: ");
                     borrarVehiculos(matricula);
                     break;
                 case 7:
@@ -232,7 +231,8 @@ public class AJBM_AlquilerVehiculo {
                 case 12:
                     int elegir = ES.leerEntero("Elige como quieres guardar los datos:"
                             + "\n1- Guardar datos .txt"
-                            + "\n2- Guardar datos .dat");
+                            + "\n2- Guardar datos .dat"
+                            + "\n");
                     if (elegir == 1) {
                         guardarDatosTXT();
                     } else if (elegir == 2) {
@@ -243,7 +243,8 @@ public class AJBM_AlquilerVehiculo {
                     int tipo = ES.leerEntero("¿Cual archivo quieres leer?"
                             + "\n 1. Archivo Clientes"
                             + "\n 2. Archivo Vehiculos"
-                            + "\n 3. Archivo Alquleres");
+                            + "\n 3. Archivo Alquleres"
+                            + "\n");
                     if (tipo == 1) {
                         elegir = ES.leerEntero("Elige como quieres guardar los datos:"
                                 + "\n1- Leer datos .txt"
@@ -257,7 +258,8 @@ public class AJBM_AlquilerVehiculo {
                     } else if (tipo == 2) {
                         elegir = ES.leerEntero("Elige como quieres guardar los datos:"
                                 + "\n1- Leer datos .txt"
-                                + "\n2- Leer datos .dat");
+                                + "\n2- Leer datos .dat"
+                                + "\n");
                         if (elegir == 1) {
                             ES.leerArchivo(rutatxtV);
 
@@ -267,7 +269,8 @@ public class AJBM_AlquilerVehiculo {
                     } else if (tipo == 3) {
                         elegir = ES.leerEntero("Elige como quieres guardar los datos:"
                                 + "\n1- Leer datos .txt"
-                                + "\n2- Leer datos .dat");
+                                + "\n2- Leer datos .dat"
+                                + "\n");
                         if (elegir == 1) {
                             ES.leerArchivo(rutatxtA);
 
@@ -278,27 +281,25 @@ public class AJBM_AlquilerVehiculo {
                         System.out.println("Esa opcion no es correcta");
                     }
                     break;
-                case 14:
-                    int opcion;
-                    do {
-                        menuBD();
-                        opcion = sc.nextInt();
-                        switch (opcion) {
-                            case 1:
-                                insertarClienteBD();
-                                break;
-                            case 2:
-                                eliminarClienteBD();
-                                break;
-                            case 3:
-                                listarClienteBD();
-                                break;
-                        }
-                    } while (opcion != 0);
+//                case 14:
+//                    int opcion;
+//                    do {
+//                        menuBD();
+//                        opcion = sc.nextInt();
+//                        switch (opcion) {
+//                            case 1:
+//                                insertarClienteBD();
+//                                break;
+//                            case 2:
+//                                eliminarClienteBD();
+//                                break;
+//                            case 3:
+//                                listarClienteBD();
+//                                break;
             }
         } while (op != 0);
     }
-//MENU
+    //MENU
 
     /**
      * Metodo menu que se mostrara al principio para indicar que numero hay que
@@ -324,23 +325,22 @@ public class AJBM_AlquilerVehiculo {
         ES.escribirLn("12. Guardar datos");
         ES.escribirLn("13. Leer archivos guardados");
         ES.escribirLn("------------------------------------------");
-        ES.escribirLn("14.Menu Base de Datos");
+//        ES.escribirLn("14. Base de datos");
 
         ES.escribirLn("0. Cerrar");
     }
 
-    public static void menuBD() {
-        System.out.println("\n\t     BBDD Usuario");
-        System.out.println("\t-------------------------");
-        System.out.println("\t1. Insertar usuario (BBDD)");
-        System.out.println("\t2. Eliminar usuario (BBDD)");
-
-        System.out.println("\t3. Listar usuarios");
-
-        System.out.println("\t0. Salir");
-        System.out.print("\nSelecciona opcion: ");
-    }
-
+//    public static void menuBD() {
+//        System.out.println("\n\t     BBDD Usuario");
+//        System.out.println("\t-------------------------");
+//        System.out.println("\t1. Insertar usuario (BBDD)");
+//        System.out.println("\t2. Eliminar usuario (BBDD)");
+//
+//        System.out.println("\t3. Listar usuarios");
+//
+//        System.out.println("\t0. Salir");
+//        System.out.print("\nSelecciona opcion: ");
+//    }
     //METODOS CLIENTES
     /**
      * Metodo que busca un cliente con un DNI introducido
@@ -364,21 +364,21 @@ public class AJBM_AlquilerVehiculo {
      */
     private static Cliente insertarCliente() {
         Cliente c;
-        String dni = ES.leerCadena("Cual es el DNI o NIE del cliente");
+        String dni = ES.leerCadena("Introduce el DNI o NIE del cliente: ");
         while (!Utilidades.comprobarDni(dni)) {
-            ES.escribir("Este DNI o NIE no es valido, vuelva a introducirlo");
-            dni = ES.leerCadena("Cual es el DNI del cliente?");
+            ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
+            dni = ES.leerCadena("Introduce el DNI del cliente? ");
         }
-        String nombre = ES.leerCadena("Introduce el nombre del Cliente");
+        String nombre = ES.leerCadena("Introduce el nombre del Cliente: ");
 
-        String direccion = ES.leerCadena("Introduce la dirección del cliente");
+        String direccion = ES.leerCadena("Introduce la dirección del cliente: ");
 
-        String localidad = ES.leerCadena("Introduce la localidad del cliente");
+        String localidad = ES.leerCadena("Introduce la localidad del cliente: ");
 
-        String codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
+        String codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente: ");
         while (!Utilidades.comprobarCodigoPostal(codigoPostal)) {
-            ES.escribir("Este codigo postal no es valido, vuelva a introducirlo");
-            codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
+            ES.escribirLn("Este codigo postal no es valido, vuelva a introducirlo");
+            codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente: ");
         }
         return c = new Cliente(dni, nombre, direccion, localidad, codigoPostal);
     }
@@ -416,7 +416,7 @@ public class AJBM_AlquilerVehiculo {
     private static void BorrarCliente(String dni) {
         while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
-            dni = ES.leerCadena("Cual es el DNI del cliente?");
+            dni = ES.leerCadena("Cual es el DNI del cliente? ");
         }
 
         for (Cliente cliente : clientes) {
@@ -469,27 +469,27 @@ public class AJBM_AlquilerVehiculo {
         Vehiculo v = null;
         boolean correcto = false;
 
-        String matricula = ES.leerCadena("Introduce la matricula del vehiculo");
+        String matricula = ES.leerCadena("Introduce la matricula del vehiculo: ");
         while (!Utilidades.comprobarMatricula(matricula)) {
             ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
-            matricula = ES.leerCadena("Cual es el matricula del vehiculo?");
+            matricula = ES.leerCadena("Introduce el matricula del vehiculo: ");
         }
-        String marca = ES.leerCadena("Introduce la marca del vehiculo");
+        String marca = ES.leerCadena("Introduce la marca del vehiculo: ");
 
-        String modelo = ES.leerCadena("Introduce el modelo del vehiculo");
+        String modelo = ES.leerCadena("Introduce el modelo del vehiculo: ");
 
-        int cilindrada = ES.leerEntero("Introduce el numero de cilindrada del vehiculo");
+        int cilindrada = ES.leerEntero("Introduce el numero de cilindrada del vehiculo: ");
 
-        int tipo = ES.leerEntero("¿Que vehiculos vas a introducir? "
+        int tipo = ES.leerEntero("¿Que vehiculos vas a introducir?"
                 + "\n 1- Turismo"
-                + "\n 2- Mercancia");
+                + "\n 2- Mercancia ");
         if (tipo == 1) {
 
-            int nPuertas = ES.leerEntero("Cuantas puertas tiene el coche?");
+            int nPuertas = ES.leerEntero("Introduce el numero de puertas del vehiculo: ");
             if (nPuertas > 4 || nPuertas < 2) {
                 while (nPuertas > 4 || nPuertas < 2) {
                     System.out.println("Un Turismo no puede tener ese numero de puertas, introduce un dato correcto");
-                    nPuertas = ES.leerEntero("Cuantas puertas tiene el coche?");
+                    nPuertas = ES.leerEntero("Introduce el numero de puertas del vehiculo: ");
                 }
             }
 
@@ -498,7 +498,7 @@ public class AJBM_AlquilerVehiculo {
                     + "\n1 - Gasolina"
                     + "\n2 - Diesel"
                     + "\n3 - Hibrido"
-                    + "\n4- Eletrico");
+                    + "\n4- Eletrico ");
             switch (op) {
                 case 1:
                     tipoCombustible = Enumerados.TipoCombustible.GASOLINA;
@@ -515,14 +515,14 @@ public class AJBM_AlquilerVehiculo {
             }
             int subTipo = ES.leerEntero("¿Que tipo de Turismo es?"
                     + "\n 1- Deportivo"
-                    + "\n 2- Familiar");
+                    + "\n 2- Familiar ");
             if (subTipo == 1) {
                 boolean descapotable = ES.leerBoolean("Introduce S o Si, si el vehiculo es descapotable,"
-                        + " al contrario, introduce N o no, si el vehiculo no lo es");
+                        + " al contrario, introduce N o no, si el vehiculo no lo es: ");
                 Enumerados.CajaCambio cambio = null;
                 int po = ES.leerEntero("Introduce uno de estos numeros para saber su caja de cambio: "
                         + "\n1 - Automatico"
-                        + "\n2 - Manual");
+                        + "\n2 - Manual ");
 
                 switch (po) {
                     case 1:
@@ -534,21 +534,21 @@ public class AJBM_AlquilerVehiculo {
                 }
                 return v = new Deportivo(cambio, descapotable, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
             } else if (subTipo == 2) {
-                int nPlazas = ES.leerEntero("¿Cuantes plazas tiene el Vehiculo?");
+                int nPlazas = ES.leerEntero("Introduce el numero de plazas del vehiculo: ");
                 boolean sillita = ES.leerBoolean("Introduce S o Si, si el vehiculo tiene silla de bebe"
-                        + " al contrario, introduce N o no, si el vehiculo no lo tiene");
+                        + " al contrario, introduce N o no, si el vehiculo no lo tiene: ");
                 return v = new Familiar(nPlazas, sillita, nPuertas, tipoCombustible, matricula, marca, modelo, cilindrada);
             }
         } else if (tipo == 2) {
-            int pma = ES.leerEntero("¿Cual es el peso del vehiculo?");
-            int volumen = ES.leerEntero("¿Cual es el volumen del vehiculo?");
+            int pma = ES.leerEntero("Introduce el peso del vehiculo: ");
+            int volumen = ES.leerEntero("Introduce el volumen del vehiculo: ");
             boolean refrigerado = ES.leerBoolean("Introduce S o Si, si el vehiculo es refrigerado"
-                    + " al contrario, introduce N o no, si el vehiculo no lo es");
+                    + " al contrario, introduce N o no, si el vehiculo no lo es: ");
             Enumerados.Tamano tamanio = null;
             int opt = ES.leerEntero("Introduce uno de estos numeros para saber el tipo de combustible: "
                     + "\n1 - Grande"
                     + "\n2 - Mediano"
-                    + "\n3 - Pequeño");
+                    + "\n3 - Pequeño ");
             switch (opt) {
                 case 1:
                     tamanio = Enumerados.Tamano.GRANDE;
@@ -593,8 +593,8 @@ public class AJBM_AlquilerVehiculo {
     private static void borrarVehiculos(String matricula) {
 
         while (!Utilidades.comprobarMatricula(matricula)) {
-            ES.escribir("Este matricula no es valido, vuelva a introducirlo");
-            matricula = ES.leerCadena("Cual es el matricula del cliente?");
+            ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
+            matricula = ES.leerCadena("Cual es el matricula del cliente? ");
         }
 
         for (Vehiculo vehiculo : vehiculos) {
@@ -629,12 +629,12 @@ public class AJBM_AlquilerVehiculo {
         String dni = ES.leerCadena("DNI del cliente: ");
         while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
-            dni = ES.leerCadena("Cual es el DNI del cliente?");
+            dni = ES.leerCadena("Cual es el DNI del cliente? ");
         }
         String matricula = ES.leerCadena("Matrícula del vehículo: ");
         while (!Utilidades.comprobarMatricula(matricula)) {
             ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
-            matricula = ES.leerCadena("Cual es el matricula del cliente?");
+            matricula = ES.leerCadena("Cual es el matricula del cliente? ");
         }
 
         Cliente c = getCliente(dni);
@@ -678,16 +678,16 @@ public class AJBM_AlquilerVehiculo {
      * de Vehiculo y Cliente y luego utilizar el metodo borrarAlquiler
      */
     private static void eliminarAlquiler() {
-        String matricula = ES.leerCadena("Cual es la matricula del coche?");
-        String dni = ES.leerCadena("Cual es el dni del ?");
+        String matricula = ES.leerCadena("Cual es la matricula del coche? ");
+        String dni = ES.leerCadena("Cual es el dni del cliente? ");
 
         while (!Utilidades.comprobarDni(dni)) {
             ES.escribirLn("Este DNI o NIE no es valido, vuelva a introducirlo");
-            dni = ES.leerCadena("Cual es el DNI del cliente?");
+            dni = ES.leerCadena("Cual es el DNI del cliente? ");
         }
         while (!Utilidades.comprobarMatricula(matricula)) {
-            ES.escribir("Este matricula no es valido, vuelva a introducirlo");
-            matricula = ES.leerCadena("Cual es el matricula del cliente?");
+            ES.escribirLn("Este matricula no es valido, vuelva a introducirlo");
+            matricula = ES.leerCadena("Cual es el matricula del cliente? ");
         }
 
         Cliente c = getCliente(dni);
@@ -791,108 +791,108 @@ public class AJBM_AlquilerVehiculo {
         }
     }
 
-    //BASE DE DATOS
-    /**
-     * Insertar usuario a la BBDD
-     *
-     */
-    public static void insertarClienteBD() {
-        ArrayList tuplaUsuario = new ArrayList<String>();
-        String dni;
-        String nombre;
-        String direccion;
-        String localidad;
-        String codigoPostal;
-        boolean baja;
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println(" INSERTAR CLIENTE A LA BBDD");
-        dni = ES.leerCadena("\nIntroduzca DNI: ");
-        while (!Utilidades.comprobarDni(dni)) {
-            ES.escribir("Este DNI o NIE no es valido, vuelva a introducirlo");
-            dni = ES.leerCadena("\nIntroduzca DNI: ");
-        }
-        tuplaUsuario.add(dni);
-
-        nombre = ES.leerCadena("Introduce el nombre del Cliente");
-        tuplaUsuario.add(nombre);
-
-        direccion = ES.leerCadena("Introduce la dirección del cliente");
-        tuplaUsuario.add(direccion);
-
-        localidad = ES.leerCadena("Introduce la localidad del cliente");
-        tuplaUsuario.add(localidad);
-
-        codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
-        while (!Utilidades.comprobarCodigoPostal(codigoPostal)) {
-            ES.escribir("Este codigo postal no es valido, vuelva a introducirlo");
-            codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
-        }
-        tuplaUsuario.add(codigoPostal);
-
-        baja = false;
-        tuplaUsuario.add(String.valueOf(baja));
-
-        conexionBD.insertarDatos("Cliente", tuplaUsuario);
-
-    }
-    //-----------------------------------------------------------------
-
-    /**
-     * Eliminar Usuario a la BBDD
-     *
-     */
-    public static void eliminarClienteBD() {
-        String dni;
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println(" INSERTAR Cliente A LA BBDD");
-        System.out.print("\nIntroduzca DNI: ");
-        dni = sc.nextLine();
-
-        conexionBD.eliminarDatos("Cliente", dni);
-    }
-
-    //-------------------------------------------------------------------------
-    private static void listarClienteBD() {
-        String sql;
-
-        try {
-            Statement sentencia = (Statement) conexionBD.getConexion().createStatement();
-            ResultSet resultado = sentencia.executeQuery("SELECT * FROM Cliente ;");
-
-            mostrarDatosTabla(resultado);
-
-            resultado.close();
-            sentencia.close();
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
-
-    }
-
-    private static void mostrarDatosTabla(ResultSet _resultado) throws SQLException {
-        java.sql.ResultSetMetaData metaDatos = _resultado.getMetaData();
-        int nColumnas = metaDatos.getColumnCount();
-        String[] formato
-                = {
-                    "%10s", "%-15s", "%-20s", "%-10s", "%-10s", "%-10s"
-                };
-
-        for (int i = 1; i >= nColumnas; i++) {
-            // Obtenemos el nombre de la columna y su valor
-            System.out.printf(formato[i - 1] + ((i < nColumnas) ? " | " : " "), metaDatos.getColumnName(i));
-        }
-        System.out.println("");
-
-        System.out.println("-----------------------------------------------------------");
-
-        while (_resultado.next()) {
-            System.out.printf("%10s | %-15s | %-20s | %-15s | %-15s | %-15s\n ", _resultado.getString(1),
-                    _resultado.getString(2), _resultado.getString(3), _resultado.getString(4), _resultado.getString(5), _resultado.getBoolean(6));
-
-        }
-    }
+//    //BASE DE DATOS
+//    /**
+//     * Insertar usuario a la BBDD
+//     *
+//     */
+//    public static void insertarClienteBD() {
+//        ArrayList tuplaUsuario = new ArrayList<String>();
+//        String dni;
+//        String nombre;
+//        String direccion;
+//        String localidad;
+//        String codigoPostal;
+//        boolean baja;
+//        Scanner sc = new Scanner(System.in);
+//
+//        System.out.println(" INSERTAR CLIENTE A LA BBDD");
+//        dni = ES.leerCadena("\nIntroduzca DNI: ");
+//        while (!Utilidades.comprobarDni(dni)) {
+//            ES.escribir("Este DNI o NIE no es valido, vuelva a introducirlo");
+//            dni = ES.leerCadena("\nIntroduzca DNI: ");
+//        }
+//        tuplaUsuario.add(dni);
+//
+//        nombre = ES.leerCadena("Introduce el nombre del Cliente");
+//        tuplaUsuario.add(nombre);
+//
+//        direccion = ES.leerCadena("Introduce la dirección del cliente");
+//        tuplaUsuario.add(direccion);
+//
+//        localidad = ES.leerCadena("Introduce la localidad del cliente");
+//        tuplaUsuario.add(localidad);
+//
+//        codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
+//        while (!Utilidades.comprobarCodigoPostal(codigoPostal)) {
+//            ES.escribir("Este codigo postal no es valido, vuelva a introducirlo");
+//            codigoPostal = ES.leerCadena("Introduce el codigo postal del cliente");
+//        }
+//        tuplaUsuario.add(codigoPostal);
+//
+//        baja = false;
+//        tuplaUsuario.add(String.valueOf(baja));
+//
+//        conexionBD.insertarDatos("Cliente", tuplaUsuario);
+//
+//    }
+//    //-----------------------------------------------------------------
+//
+//    /**
+//     * Eliminar Usuario a la BBDD
+//     *
+//     */
+//    public static void eliminarClienteBD() {
+//        String dni;
+//
+//        Scanner sc = new Scanner(System.in);
+//
+//        System.out.println(" INSERTAR Cliente A LA BBDD");
+//        System.out.print("\nIntroduzca DNI: ");
+//        dni = sc.nextLine();
+//
+//        conexionBD.eliminarDatos("Cliente", dni);
+//    }
+//
+//    //-------------------------------------------------------------------------
+//    private static void listarClienteBD() {
+//        String sql;
+//
+//        try {
+//            Statement sentencia = (Statement) conexionBD.getConexion().createStatement();
+//            ResultSet resultado = sentencia.executeQuery("SELECT * FROM Cliente ;");
+//
+//            mostrarDatosTabla(resultado);
+//
+//            resultado.close();
+//            sentencia.close();
+//        } catch (SQLException e) {
+//
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    private static void mostrarDatosTabla(ResultSet _resultado) throws SQLException {
+//        java.sql.ResultSetMetaData metaDatos = _resultado.getMetaData();
+//        int nColumnas = metaDatos.getColumnCount();
+//        String[] formato
+//                = {
+//                    "%10s", "%-15s", "%-20s", "%-10s", "%-10s", "%-10s"
+//                };
+//
+//        for (int i = 1; i >= nColumnas; i++) {
+//            // Obtenemos el nombre de la columna y su valor
+//            System.out.printf(formato[i - 1] + ((i < nColumnas) ? " | " : " "), metaDatos.getColumnName(i));
+//        }
+//        System.out.println("");
+//
+//        System.out.println("-----------------------------------------------------------");
+//
+//        while (_resultado.next()) {
+//            System.out.printf("%10s | %-15s | %-20s | %-15s | %-15s | %-15s\n ", _resultado.getString(1),
+//                    _resultado.getString(2), _resultado.getString(3), _resultado.getString(4), _resultado.getString(5), _resultado.getBoolean(6));
+//
+//        }
+//    }
 }
