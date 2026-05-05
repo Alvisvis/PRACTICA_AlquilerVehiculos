@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Scanner;
 import practica_ajbm.Vehiculo;
@@ -179,11 +180,15 @@ public class AJBM_AlquilerVehiculo {
             switch (op) {
                 case 1:
                     Cliente c = insertarCliente();
-                    anadirCliente(c);
+                    if (c != null) {
+                        anadirCliente(c);
+                    }
                     break;
                 case 2:
                     Vehiculo v = insertarVehiculo();
-                    anadirVehiculos(v);
+                    if (v != null) {
+                        anadirVehiculos(v);
+                    }
                     break;
                 case 3:
                     dni = ES.leerCadena("Introduce el DNI del cliente: ");
@@ -202,11 +207,12 @@ public class AJBM_AlquilerVehiculo {
                     break;
                 case 7:
                     Alquiler a = insertarAlquler();
-                    nuevoAlquiler(a);
+                    if (a != null) {
+                        nuevoAlquiler(a);
+                    }
                     break;
                 case 8:
                     menuEliminacion();
-                    eliminarAlquiler();
                     break;
                 case 9:
                     int elegir = ES.leerEntero("Elige como quieres guardar los datos:"
@@ -361,6 +367,8 @@ public class AJBM_AlquilerVehiculo {
     public static void menuEliminacion() {
 
         int op = 0;
+        String marca;
+        LocalDateTime fechaIndi;
         do {
             ES.escribirLn("""
                             Que quieres eliminar?
@@ -370,13 +378,44 @@ public class AJBM_AlquilerVehiculo {
             op = ES.leerEntero("");
             switch (op) {
                 case 1:
+                    marca = ES.leerCadena("¿Que marca de vehiculo quieres eliminar? ");
 
+                    for (Vehiculo vehiculo : vehiculos) {
+                        if (vehiculo.getMarca().equals(marca)) {
+                            vehiculos.remove(vehiculo);
+                            System.out.println("Se ha borrado exitosamente");
+                        } else {
+                            System.out.println("Ha ocurrido un problema y no se ha podido borrar el vehiculo");
+                        }
+                    }
                     break;
                 case 2:
-
+                    marca = ES.leerCadena("¿Que marca de vehiculo quieres eliminar? ");
+                    for (Alquiler alquilere : alquileres) {
+                        if (alquilere.getTurismo().getMarca().equals(marca)) {
+                            alquilere.cerrar();
+                            System.out.println("Se ha cerrado exitosamente");
+                        } else {
+                            System.out.println("Ha ocurrido un problema y no se ha podido cerrar el alquiler");
+                        }
+                    }
                     break;
                 case 3:
-
+                    int anno = ES.leerEntero("¿Que año se añadio el vehiculo?");
+                    int mes = ES.leerEntero("¿Que mes se añadio el vehiculo?");
+                    int dia = ES.leerEntero("¿Que dia se añadio el vehiculo?");
+                    int hora = ES.leerEntero("¿Que hora se añadio el vehiculo?");
+                    int minutos = ES.leerEntero("¿Que minutos se añadio el vehiculo?");
+                    fechaIndi = LocalDateTime.of(anno, mes, dia, hora, minutos);
+                    System.out.println(fechaIndi);
+                    for (Alquiler alquilere : alquileres) {
+                        if (alquilere.getFecha().isBefore(fechaIndi)) {
+                            alquilere.cerrar();
+                            System.out.println("Se ha cerrado exitosamente");
+                        } else {
+                            System.out.println("Ha ocurrido un problema y no se ha podido cerrar el alquiler");
+                        }
+                    }
                     break;
             }
         } while (op != 0);
@@ -705,6 +744,7 @@ public class AJBM_AlquilerVehiculo {
 
         if (!v.isDisponible()) {
             System.out.println("Este vehiculo no esta disponible");
+            return null;
         }
         LocalDateTime fechaInicio = LocalDateTime.now();
         LocalDateTime fechaCierre = null;
@@ -720,6 +760,10 @@ public class AJBM_AlquilerVehiculo {
      * @param a
      */
     private static void nuevoAlquiler(Alquiler a) {
+        if (a == null) {
+            System.out.println("No se puede añadir un alquiler nulo");
+            return;
+        }
         alquileres.add(a);
         numAlquiler++;
         ES.escribir("Alquiler abierto correctamente.");
@@ -791,56 +835,76 @@ public class AJBM_AlquilerVehiculo {
 
     //ARCHIVOS
     public static void guardarDatosTXT() {
+        int tipo = ES.leerEntero("¿Qué tipo de datos quieres guardar?"
+                + "\n1- Cliente"
+                + "\n2- Vehiculo"
+                + "\n3- Alquiler"
+                + "\n");
         boolean sobreescribir = false;
+        switch (tipo) {
+            case 1:
+                for (Cliente cliente : clientes) {
+                    if (cliente != null) {
+                        ES.escribirArchivo(rutatxtC, cliente.toEscribir(), sobreescribir);
+                        sobreescribir = true;
 
-        for (Cliente cliente : clientes) {
-            if (cliente != null) {
-                ES.escribirArchivo(rutatxtC, cliente.toEscribir(), sobreescribir);
-                sobreescribir = true;
+                    }
+                }
+                break;
+            case 2:
+                for (Vehiculo vehiculo : vehiculos) {
+                    if (vehiculo != null) {
+                        ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), sobreescribir);
+                        sobreescribir = true;
 
-            }
+                    }
+                }
+                break;
+            case 3:
+                for (Alquiler alquilere : alquileres) {
+                    if (alquilere != null) {
+                        ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), sobreescribir);
+                        sobreescribir = true;
+
+                    }
+                }
+                break;
         }
 
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo != null) {
-                ES.escribirArchivo(rutatxtV, vehiculo.toEscribir(), sobreescribir);
-                sobreescribir = true;
-
-            }
-        }
-
-        for (Alquiler alquilere : alquileres) {
-            if (alquilere != null) {
-                ES.escribirArchivo(rutatxtA, alquilere.toEscribir(), sobreescribir);
-                sobreescribir = true;
-
-            }
-        }
     }
 
     public static void guardarDatosDAT() {
-
+        int tipo = ES.leerEntero("¿Qué tipo de datos quieres guardar?"
+                + "\n1- Cliente"
+                + "\n2- Vehiculo"
+                + "\n3- Alquiler"
+                + "\n");
         boolean sobreescribir = false;
-
-        for (Cliente cliente : clientes) {
-            if (cliente != null) {
-                ES.escribirArchivo(rutadatC, cliente.toEscribir(), sobreescribir);
-                sobreescribir = true;
-            }
-        }
-
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo != null) {
-                ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), sobreescribir);
-                sobreescribir = true;
-            }
-        }
-
-        for (Alquiler alquilere : alquileres) {
-            if (alquilere != null) {
-                ES.escribirArchivo(rutadatA, alquilere.toEscribir(), sobreescribir);
-                sobreescribir = true;
-            }
+        switch (tipo) {
+            case 1:
+                for (Cliente cliente : clientes) {
+                    if (cliente != null) {
+                        ES.escribirArchivo(rutadatC, cliente.toEscribir(), sobreescribir);
+                        sobreescribir = true;
+                    }
+                }
+                break;
+            case 2:
+                for (Vehiculo vehiculo : vehiculos) {
+                    if (vehiculo != null) {
+                        ES.escribirArchivo(rutadatV, vehiculo.toEscribir(), sobreescribir);
+                        sobreescribir = true;
+                    }
+                }
+                break;
+            case 3:
+                for (Alquiler alquilere : alquileres) {
+                    if (alquilere != null) {
+                        ES.escribirArchivo(rutadatA, alquilere.toEscribir(), sobreescribir);
+                        sobreescribir = true;
+                    }
+                }
+                break;
         }
     }
 

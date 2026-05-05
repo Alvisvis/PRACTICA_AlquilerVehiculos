@@ -13,10 +13,10 @@ import java.time.temporal.ChronoUnit;
  *
  * @author dam-29
  */
-public class Alquiler implements Serializable{
+public class Alquiler implements Serializable {
 
     //Atributo
-    private final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
+    private final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private final double PRECIO_DIA = 43.0;
     private LocalDateTime fechaInicio, fechaCierre;
     private int dias;
@@ -25,11 +25,15 @@ public class Alquiler implements Serializable{
     private boolean baja;
 
     //Constructores
-    public Alquiler(Cliente c , Vehiculo v, LocalDateTime fechaInicio, LocalDateTime fechaCierre) {
-        this.fechaInicio = LocalDateTime.now();
-        this.fechaCierre = null;
-        this.turismo = v;
-        this.cliente = c;
+    public Alquiler(Cliente c, Vehiculo v, LocalDateTime fechaInicio, LocalDateTime fechaCierre) {
+        this.fechaInicio = (fechaInicio != null) ? fechaInicio : LocalDateTime.now();
+        this.fechaCierre = fechaCierre;
+        if (v != null) {
+            this.turismo = v;
+        }
+        if (c != null) {
+            this.cliente = c;
+        }
         this.dias = 0;
         turismo.setDisponible(false);
         this.baja = false;
@@ -88,10 +92,10 @@ public class Alquiler implements Serializable{
     }
 
     public String toEscribir() {
-        return "Alquiler#" 
-                + cliente.getDni() + "#" 
-                + turismo.getMatricula() + "#" 
-                + fechaInicio + "#" 
+        return "Alquiler#"
+                + (cliente != null ? cliente.getDni() : "SIN_CLIENTE") + "#"
+                + (turismo != null ? turismo.getMatricula() : "SIN_VEHICULO") + "#"
+                + fechaInicio + "#"
                 + (fechaCierre == null ? "Abierto" : fechaCierre);
     }
 }
