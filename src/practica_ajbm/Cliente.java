@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author dam-29
  */
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
     //Atributos
     private String dni;
@@ -70,7 +70,11 @@ public class Cliente implements Serializable{
         this.baja = baja;
     }
 
-    //ToString
+    /**
+     * Devuelve la cadena de texto de los datos de la clase
+     *
+     * @return Datos de la clase en formato texto
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -84,6 +88,12 @@ public class Cliente implements Serializable{
         return sb.toString();
     }
 
+    /**
+     * Devuelve los datos de la clase en formato fecha. Estos datos son escritos
+     * en un archivo de tipo .txt o .dat
+     *
+     * @return Devuelve los datos de la clase para un archivo
+     */
     public String toEscribir() {
         return "Cliente#" + dni + "#" + nombre + "#" + direccion + "#" + localidad + "#" + codigoPostal + "#" + baja;
     }
